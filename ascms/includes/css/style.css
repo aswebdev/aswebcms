@@ -1,0 +1,326 @@
+/* CMS Main CSS Document */
+
+/* Font Definitions */
+
+@font-face {
+	font-family: OpenSansRegular;
+	src: url(../fonts/OpenSans-Regular.ttf);
+}
+
+@font-face {
+	font-family: OpenSansSemibold;
+	src: url(../fonts/OpenSans-Semibold.ttf);
+}
+
+/* Style Rewrites */
+
+html, body {
+	margin:0;
+	padding:0;
+	width:100%;
+	height:100%;	
+}
+
+body {
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#313233;	
+}
+
+h1 {
+	width:100%;
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:20px;
+	font-weight:normal;
+	color:#FFF;
+	background-color:#65AC02;	
+	padding:5px;
+}
+
+input, select, textarea {
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+}
+
+/* Style Identifiers */
+
+#holder {
+	position: relative;
+	clear: both;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+	margin-top: 40px;
+}
+
+#container {
+	position:relative;
+	width:100%;
+	height:100%;
+	text-align:left;
+}
+
+#content {
+	position:relative;	
+	width:690px;
+	float:right;
+	background-color:#F2F2E6;
+}
+
+#pageContent {
+	position:relative;	
+}
+
+#backgroundPopup { 
+	z-index:1;
+	position: fixed;
+	display:none;
+	height:100%;
+	width:100%;
+	background:#000000;	
+	top:0px;  
+	left:0px;
+}
+
+#toPopup {
+	 background: none repeat scroll 0 0 #F00;	
+}
+
+#searchPopup {
+	background: none repeat scroll 0 0 #1AA9E0;
+}
+
+#toPopup, #searchPopup { 
+    display: none;
+    left: 50%;
+    margin-left: -402px;
+    position: fixed;
+    top: 20%;
+    width: 800px;
+	height: 500px;
+    z-index: 2;
+	color:#FFF;
+}
+
+#searchContent {
+	position:relative;
+	padding:10px;
+	color:white;
+}
+
+#searchResults a {
+	color:white;
+}
+
+#popupContent {
+	position:relative;
+	padding:10px;
+	color:white;
+}
+
+#topNavigationBar {
+	position:absolute;
+	width:100%;
+	height:40px;
+	top:0;
+	background-color:#1aa9e0;
+}
+
+#siteNameHeading {
+	position:absolute;
+	left:12px;
+	top:9px;
+	font-family:OpenSansSemibold, Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color:white;
+}
+
+#siteNameSubheading {
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+}
+
+#searchIcon {
+	position:absolute;
+	width:20px;
+	height:20px;
+	right: 41px;
+	top: 9px;
+}
+
+#logoutIcon {
+	position:absolute;
+	width:19px;
+	height:19px;
+	right: 13px;
+	top: 10px;
+}
+
+#searchText, #logoutText {
+	position:absolute;
+	right: 78px;
+	top: 12px;
+	text-align:right;
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:white;
+	display:none;
+}
+
+#updateMsg {
+	display:none;
+	position:relative;
+	opacity:0;
+	padding:5px;
+	background-color:#FF5400;
+	color:#FFF;
+	margin-bottom:10px;	
+}
+
+/* Style Classes */
+
+label {
+	float: left;
+	width: 200px;
+	clear: both;
+	font-weight:bold;
+}
+
+.adminForm input, .adminForm select, .adminForm textarea {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.menuItem {
+	position:relative;
+	width:100%;
+	padding:5px 0px 5px 0px;
+	margin-top:5px;	
+}
+
+.menuItem a {
+	color:white;
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:13px;
+	text-decoration:none;	
+}
+
+.menuSubItem {
+	position:relative;
+	width:100%;
+	padding:0px 0px 0px 0px;
+	margin-top:0px;	
+}
+
+.menuSubItem a {
+	color:white;
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	text-decoration:none;	
+}
+
+.menuIcon {
+	opacity:0;
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:white;
+}
+
+.menusubIcon {
+	opacity:0;
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:white;	
+}
+
+.menuSubItem:hover .menusubIcon {
+    opacity: 1;
+}
+
+.menuItem:hover .menuIcon {
+    opacity: 1;
+}
+
+.searchTerm {
+	font-size:18px;	
+}
+
+.searchHeading {
+	display:block;
+	position:relative;
+	font-family:OpenSansRegular, Arial, Helvetica, sans-serif;
+	font-size:20px;
+	color:#FFF;	
+	padding-bottom:10px;
+}
+
+.submitButton, .deleteButton {
+	display:inline-block;
+	position:relative;
+	font-family:OpenSansSemibold, Arial, Helvetica, sans-serif;
+	font-size:14px;
+	background-color:#1AA9E0;
+	color:#FFF;
+	text-decoration:none;
+	padding:5px;
+}
+
+.submitButton:hover, .deleteButton:hover {
+	background-color:#2980B9;	
+}
+
+.lineHolder {
+	position:relative;
+	height:17px;
+	width:100%;
+}
+
+/* Layout Columns */
+
+/* column container */
+
+.colmask {
+	position:relative;		/* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
+	clear:both;
+	float:left;
+	width:100%;			/* width of whole page */
+	overflow:hidden;	/* This chops off any overhanging divs */
+	margin-top:40px;
+	min-height:100%;
+}
+
+/* 2 column left menu settings */
+
+.leftmenu {
+	background:#313233;
+}
+
+.leftmenu .colright {
+	float:left;
+	width:200%;
+	position:relative;
+	left:230px;
+	background:#E1E1E1;
+	min-height:100%;
+}
+
+.leftmenu .col1wrap {
+	float:right;
+	width:50%;
+	position:relative;
+	right:200px;
+	padding-bottom:1em;
+}
+
+.leftmenu .col1 {
+	margin:0 40px 0 215px;
+	position:relative;
+	right:100%;
+	overflow:hidden;
+}
+
+.leftmenu .col2 {
+	float:left;
+	width:230px;
+	position:relative;
+	right:215px;
+	margin-top: 5px;
+}

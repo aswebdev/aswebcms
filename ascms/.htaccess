@@ -1,0 +1,9 @@
+### DISABLE BY IP ADDRESS ###
+deny from all
+allow from 125.168.11.196	# Xceed Office
+allow from 125.168.16.23    # Xceed Office 2
+allow from 125.253.110.196 	# Company Mail
+allow from 125.253.103.185	# Hunter
+allow from 125.253.103.195	# Proxy Server
+allow from 203.45.68.188	# Telstra
+
