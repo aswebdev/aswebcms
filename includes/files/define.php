@@ -9,7 +9,7 @@ session_start(); // Start a new Session
 
 // Site Constants
 define('BASE_PATH',''); // Website Base Path /home2/somesite/public_html/ 
-define('BASE_PATH_CMS',''); // CMS Base Path /home2/somesite/public_html/xcms/
+define('BASE_PATH_CMS',BASE_PATH.'ascms/'); // CMS Base Path /home2/somesite/public_html/xcms/
 define('SITE_NAME',''); // Used in Meta Titles and Misc places on the website 
 define('SITE_DESCRIPTION',''); // Used in Meta Descriptions on the website 
 define('ERROR_MESSAGE','Sorry, we are having problems at the moment. Please come back later.'); // General Site Error Message

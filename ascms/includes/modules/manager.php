@@ -87,7 +87,6 @@ if($isValidPage) {
 								}
 							} else {
 								// Use the Standard Upload	
-								echo "<!-- STANDARD COPY -->\n";
 								if(@copy($_FILES[$uploadName]['tmp_name'], BASE_PATH.$uploadDirectory.$filename)) {
 									// Save the Filename into the Database for safe keeping :)
 									$sql = "UPDATE `".$VARS['TABLE']."` SET  `$uploadName` = '".$filename."' WHERE `".$VARS['DB-KEY']."` = '".mysql_real_escape_string($id)."' ";
@@ -203,9 +202,6 @@ if($isValidPage) {
 	
 	// Loop Pages
 	$sql = "SELECT `".$VARS['DB-KEY']."`,`".$VARS['LABEL-FIELD']."` FROM `".$VARS['TABLE']."`";
-	if(!empty($VARS['DB-QUALIFIER'])) {
-		$sql .= $VARS['DB-QUALIFIER'];
-	}
 	if(!empty($VARS['DB-ORDERBY'])) {
 		$sql .= $VARS['DB-ORDERBY'];
 	}
@@ -267,7 +263,6 @@ if($isValidPage) {
 					$filetypeAttributes .= '"';
 				}
 
-				
 				switch($formElements['TYPE']) {
 					case 'text':
 						echo "<div class=\"lineHolder\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
@@ -276,7 +271,12 @@ if($isValidPage) {
 					break;
 					case 'text-url':
 						echo "<div class=\"lineHolder\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
-						echo "<label for=\"".$formElements['DATABASE-FIELD']."\">".$formElements['LABEL']."</label>".BASE_URL."<input type=\"text\" name=\"".$formElements['DATABASE-FIELD']."\" id=\"".$formElements['DATABASE-FIELD']."\" $additionalAttributes $styleAttributes value=\"".$r[$formElements['DATABASE-FIELD']]."\" />/";
+						echo "<label for=\"".$formElements['DATABASE-FIELD']."\">".$formElements['LABEL']."</label>".BASE_URL."<input type=\"text\" name=\"".$formElements['DATABASE-FIELD']."\" id=\"".$formElements['DATABASE-FIELD']."\" $additionalAttributes $styleAttributes value=\"".$r[$formElements['DATABASE-FIELD']]."\" />";
+						echo "</div>\n";
+					break;
+					case 'textarea':
+						echo "<div class=\"lineHolder\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
+						echo "<label for=\"".$formElements['DATABASE-FIELD']."\">".$formElements['LABEL']."</label>".BASE_URL."<textarea name=\"".$formElements['DATABASE-FIELD']."\" id=\"".$formElements['DATABASE-FIELD']."\" $additionalAttributes $styleAttributes >".$r[$formElements['DATABASE-FIELD']]."</textarea>";
 						echo "</div>\n";
 					break;
 					case 'select':
@@ -294,7 +294,6 @@ if($isValidPage) {
 							} else {
 								$sql .= " ORDER BY `".$formElements['DB-SELECT']['LABEL']."`";
 							}
-							
 							
 							if($res = mysql_query($sql,$conn)) {
 								while($s = mysql_fetch_array($res)) {
@@ -352,20 +351,6 @@ if($isValidPage) {
 							echo "{ name: 'colors', items : [ 'TextColor','BGColor','Image' ] }\n";
 							echo "];\n";
 						} else {
-							/*
-							echo "CKEDITOR.config.toolbar = [\n";
-							echo "{ name: 'document', items : [ 'Source','-' ] },\n";
-							echo "{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },\n";
-							echo "{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker' ] },\n";
-							echo "{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','-','RemoveFormat' ] },\n";
-							echo "{ name: 'colors', items : [ 'TextColor','BGColor' ] },\n";
-							echo "'/',\n";
-							echo "{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv',\n";
-							echo "'-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },\n";
-							echo "{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },\n";
-							echo "{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','SpecialChar','Iframe' ] }\n";
-							echo "];\n";
-							*/
 							echo "CKEDITOR.config.toolbar = [\n";
 							echo "{ name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },";
 							echo "{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },";
