@@ -12,7 +12,9 @@ if($conn) {
 	// Page List Array. This is an array of the Sections that will be associated with the CMS
 	// Initially, page-management, product-management and banner-management are available sections
 	$sectionsArray = array(
-		'page-management'
+		'page-management',
+		'product-management',
+		'customer-management'
 	);
 	
 	// Loop the Array and include the CMS sections
@@ -24,151 +26,6 @@ if($conn) {
 			}
 		}
 	}
-	
-	
-	
-	
-	// Fields for General Admin Pages
-	/*
-	$adminVariables['PAGE-LIST'] = array(
-									'page-management' => array('TITLE' => 'Page Management', 'SHOW-SUBITEMS' => 'true'),
-									'banner-management' => array('TITLE' => 'Banner Management', 'SHOW-SUBITEMS' => 'true'),
-									'product-management' => array('TITLE' => 'Products Management'),
-									'order-management' => array('TITLE' => 'Orders Management'),
-									'customer-management' => array('TITLE' => 'Customer Management'),
-									'product-category-management' => array('TITLE' => 'Product Category Management', 'SHOW-SUBITEMS' => 'true'),
-									'product-group-management' => array('TITLE' => 'Product Group Management', 'SHOW-SUBITEMS' => 'true'),
-									'product-subgroup-management' => array('TITLE' => 'Product Sub-Group Management', 'SHOW-SUBITEMS' => 'true'),
-									'promo-management' => array('TITLE' => 'Promo Code Management', 'SHOW-SUBITEMS' => 'true'),
-									'shipping-code-management' => array('TITLE' => 'Shipping Code Management', 'SHOW-SUBITEMS' => 'true')
-									);
-	*/
-
-	// Fields for Products Management
-	$adminVariables['PRODUCT-MANAGEMENT']['PAGE-TITLE'] = 'Products Management';
-	$adminVariables['PRODUCT-MANAGEMENT']['PAGE-FILE'] = 'product-management';
-	$adminVariables['PRODUCT-MANAGEMENT']['LABELER'] = 'Product';
-	$adminVariables['PRODUCT-MANAGEMENT']['DB-FIELDS'] = array('TITLE','DESCRIPTION','GIFT-WRAPPING','NEW-PRODUCT','SELL-POINTS','YOUTUBE-LINK','PRODUCT-CATEGORY','PRODUCT-GROUP','PRODUCT-SUBGROUP','ACTIVE','MALE','FEMALE','RELATED-PRODUCT-1','RELATED-PRODUCT-2','RELATED-PRODUCT-3','RELATED-PRODUCT-4','UNAVAILABLE-FOR-PURCHASE','COMING-SOON','METRO-ONLY','IMAGE-FILENAME-CAPTION','IMAGE-FILENAME-CAPTION-2','IMAGE-FILENAME-CAPTION-3','IMAGE-FILENAME-CAPTION-4','IMAGE-FILENAME-CAPTION-5','IMAGE-FILENAME-CAPTION-6','IMAGE-FILENAME-CAPTION-7','IMAGE-FILENAME-CAPTION-8',);
-	$adminVariables['PRODUCT-MANAGEMENT']['DB-QUALIFIER'] = "";
-	$adminVariables['PRODUCT-MANAGEMENT']['DB-ORDERBY'] = " ORDER BY `TITLE` "; // Ordering
-	$adminVariables['PRODUCT-MANAGEMENT']['LABEL-FIELD'] = 'TITLE';
-	$adminVariables['PRODUCT-MANAGEMENT']['DISPLAY-KEY-IN-LABEL'] = true;
-	$adminVariables['PRODUCT-MANAGEMENT']['FORM-ELEMENTS'] = array(
-															'TITLE' => array('TYPE' => 'text', 'LABEL' => 'Product Title', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Enter the Product Title', 'DATABASE-FIELD' => 'TITLE', 'DESCRIPTION' => 'Product Title', 'STYLES' => array('width' => '400px'), 'PLACEHOLDER' => 'Enter the Product Title'),
-															'NEW-PRODUCT' => array('TYPE' => 'checkbox', 'LABEL' => 'New Product', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'NEW-PRODUCT', 'DESCRIPTION' => 'Is a New Product?'),
-															'ACTIVE' => array('TYPE' => 'checkbox', 'LABEL' => 'Active Product', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'ACTIVE', 'DESCRIPTION' => 'Is Active on the Site?'),
-															'GIFT-WRAPPING' => array('TYPE' => 'checkbox', 'LABEL' => 'Gift Wrapping', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'GIFT-WRAPPING', 'DESCRIPTION' => 'Is the Product Gift Wrapped?'),
-															'FEMALE' => array('TYPE' => 'checkbox', 'LABEL' => 'For Females', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'FEMALE', 'DESCRIPTION' => 'For Females?'),
-															'MALE' => array('TYPE' => 'checkbox', 'LABEL' => 'For Males', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'MALE', 'DESCRIPTION' => 'For Males?'),														
-															'UNAVAILABLE-FOR-PURCHASE' => array('TYPE' => 'checkbox', 'LABEL' => 'Unavailable for Purchase', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'UNAVAILABLE-FOR-PURCHASE', 'DESCRIPTION' => 'Product Unavailable for Purchase'),
-															'COMING-SOON' => array('TYPE' => 'checkbox', 'LABEL' => 'Coming Soon', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'COMING-SOON', 'DESCRIPTION' => 'Product Coming Soon'),	
-															'METRO-ONLY' => array('TYPE' => 'checkbox', 'LABEL' => 'Metro Only?', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'METRO-ONLY', 'DESCRIPTION' => 'Metro Only Product'),	
-															'PRODUCT-CATEGORY' => array('TYPE' => 'select', 'LABEL' => 'Product Category', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Product Category', 'DATABASE-FIELD' => 'PRODUCT-CATEGORY', 'DESCRIPTION' => 'Product Category', 'DB-SELECT' => array('TABLE' => 'PRODUCT-CATEGORIES', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'ID')),
-															'PRODUCT-GROUP' => array('TYPE' => 'select', 'LABEL' => 'Product Group', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Product Group', 'DATABASE-FIELD' => 'PRODUCT-GROUP', 'DESCRIPTION' => 'Product Group', 'DB-SELECT' => array('TABLE' => 'PRODUCT-GROUPS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'ID')),
-															'PRODUCT-SUBGROUP' => array('TYPE' => 'select', 'LABEL' => 'Product Sub-Group', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Product Sub-Group', 'DATABASE-FIELD' => 'PRODUCT-SUBGROUP', 'DESCRIPTION' => 'Product Sub-Group', 'DB-SELECT' => array('TABLE' => 'PRODUCT-SUBGROUP', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'ID')),
-															'YOUTUBE-LINK' => array('TYPE' => 'text', 'LABEL' => 'You Tube URL', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'YOUTUBE-LINK', 'DESCRIPTION' => 'YouTube URL Link', 'PLACEHOLDER' => 'Enter the YouTube URL', 'STYLES' => array('width' => '400px')),
-															'PDF-FILENAME' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'guides/products/', 'LABEL' => 'PDF Instructions', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'PDF-FILENAME', 'DESCRIPTION' => 'PDF Instructions', 'FILE-TYPES' => array('pdf')),
-															'IMAGE-FILENAME' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500')),
-															'IMAGE-FILENAME-CAPTION' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION', 'DESCRIPTION' => 'Image Caption', 'PLACEHOLDER' => 'Image Caption', 'STYLES' => array('width' => '400px')),
-															'IMAGE-FILENAME-2' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload (Alt 1)', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-2', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500'), 'FILE-APPEND' => '_A'),
-															'IMAGE-FILENAME-CAPTION-2' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption 2', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION-2', 'DESCRIPTION' => 'Image Caption 2', 'PLACEHOLDER' => 'Image Caption 2', 'STYLES' => array('width' => '400px')),
-															'IMAGE-FILENAME-3' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload (Alt 2)', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-3', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500'), 'FILE-APPEND' => '_B'),
-															'IMAGE-FILENAME-CAPTION-3' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption 3', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION-3', 'DESCRIPTION' => 'Image Caption 3', 'PLACEHOLDER' => 'Image Caption 3', 'STYLES' => array('width' => '400px')),
-															'IMAGE-FILENAME-4' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload (Alt 3)', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-4', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500'), 'FILE-APPEND' => '_C'),
-															'IMAGE-FILENAME-CAPTION-4' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption 4', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION-4', 'DESCRIPTION' => 'Image Caption 4', 'PLACEHOLDER' => 'Image Caption 4', 'STYLES' => array('width' => '400px')),
-															'IMAGE-FILENAME-5' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload (Alt 4)', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-5', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500'), 'FILE-APPEND' => '_D'),
-															'IMAGE-FILENAME-CAPTION-5' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption 5', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION-5', 'DESCRIPTION' => 'Image Caption 5', 'PLACEHOLDER' => 'Image Caption 5', 'STYLES' => array('width' => '400px')),
-															'IMAGE-FILENAME-6' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload (Alt 5)', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-6', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500'), 'FILE-APPEND' => '_E'),
-															'IMAGE-FILENAME-CAPTION-6' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption 6', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION-6', 'DESCRIPTION' => 'Image Caption 6', 'PLACEHOLDER' => 'Image Caption 6', 'STYLES' => array('width' => '400px')),
-															'IMAGE-FILENAME-7' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload (Alt 6)', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-7', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500'), 'FILE-APPEND' => '_F'),
-															'IMAGE-FILENAME-CAPTION-7' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption 7', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION-7', 'DESCRIPTION' => 'Image Caption 7', 'PLACEHOLDER' => 'Image Caption 7', 'STYLES' => array('width' => '400px')),
-															'IMAGE-FILENAME-8' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload (Alt 7)', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-8', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500'), 'FILE-APPEND' => '_G'),
-															'IMAGE-FILENAME-CAPTION-8' => array('TYPE' => 'text', 'LABEL' => 'Image Popup Caption 8', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME-CAPTION-8', 'DESCRIPTION' => 'Image Caption 8', 'PLACEHOLDER' => 'Image Caption 8', 'STYLES' => array('width' => '400px')),
-															'RELATED-PRODUCT-1' => array('TYPE' => 'select', 'LABEL' => 'Related Product', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Related Product', 'DATABASE-FIELD' => 'RELATED-PRODUCT-1', 'DESCRIPTION' => 'Related Product', 'DB-SELECT' => array('TABLE' => 'PRODUCTS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'PRODUCT-CODE')),
-															'RELATED-PRODUCT-2' => array('TYPE' => 'select', 'LABEL' => 'Related Product', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Related Product', 'DATABASE-FIELD' => 'RELATED-PRODUCT-2', 'DESCRIPTION' => 'Related Product', 'DB-SELECT' => array('TABLE' => 'PRODUCTS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'PRODUCT-CODE')),
-															'RELATED-PRODUCT-3' => array('TYPE' => 'select', 'LABEL' => 'Related Product', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Related Product', 'DATABASE-FIELD' => 'RELATED-PRODUCT-3', 'DESCRIPTION' => 'Related Product', 'DB-SELECT' => array('TABLE' => 'PRODUCTS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'PRODUCT-CODE')),
-															'RELATED-PRODUCT-4' => array('TYPE' => 'select', 'LABEL' => 'Related Product', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Related Product', 'DATABASE-FIELD' => 'RELATED-PRODUCT-4', 'DESCRIPTION' => 'Related Product', 'DB-SELECT' => array('TABLE' => 'PRODUCTS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'PRODUCT-CODE')),
-															'SELL-POINTS' => array('TYPE' => 'wysiwyg', 'SETTINGS' => array('WIDTH' => 600, 'HEIGHT' => '300'), 'LABEL' => 'Selling Points', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'SELL-POINTS', 'DESCRIPTION' => 'Product Selling Points'),
-															'DESCRIPTION' => array('TYPE' => 'wysiwyg', 'SETTINGS' => array('WIDTH' => 600, 'HEIGHT' => '300'), 'LABEL' => 'Product Description', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'DESCRIPTION', 'DESCRIPTION' => 'Product Description'),														
-															'PRICE-INC' => array('TYPE' => 'readonly', 'LABEL' => 'Price Inc GST', 'DATABASE-FIELD' => 'PRICE-INC', 'DESCRIPTION' => 'Price Inc GST', 'PRE-PEND-FIELD' => "$"),
-															'PRICE-EX' => array('TYPE' => 'readonly', 'LABEL' => 'Price Ex GST', 'DATABASE-FIELD' => 'PRICE-EX', 'DESCRIPTION' => 'Price Ex GST', 'PRE-PEND-FIELD' => "$"),
-															'CUBIC-VOL' => array('TYPE' => 'readonly', 'LABEL' => 'Cubic Volume', 'DATABASE-FIELD' => 'CUBIC-VOL', 'DESCRIPTION' => 'Cubic Volume')
-															);
-	$adminVariables['PRODUCT-MANAGEMENT']['DB-KEY'] = "PRODUCT-CODE"; // The Database Primary Key
-	$adminVariables['PRODUCT-MANAGEMENT']['TABLE'] = 'PRODUCTS'; // Table to Update
-	$adminVariables['PRODUCT-MANAGEMENT']['FUNCTIONALITY'] = array('UPDATE'); // Functionality for Page
-	$adminVariables['PRODUCT-MANAGEMENT']['INCLUDE-FILES'] = array(
-															array('TYPE' => 'JS', 'LOCATION' => 'includes/packages/ckeditor/ckeditor.js', 'BASE' => 'CMS')
-															 );
-
-
-	// Fields for Customers Management
-	$adminVariables['CUSTOMER-MANAGEMENT']['PAGE-TITLE'] = 'Customers Management';
-	$adminVariables['CUSTOMER-MANAGEMENT']['PAGE-FILE'] = 'customer-management';
-	$adminVariables['CUSTOMER-MANAGEMENT']['LABELER'] = 'Customer';
-	$adminVariables['CUSTOMER-MANAGEMENT']['DB-FIELDS'] = array('FIRST-NAME','LAST-NAME','EMAIL','CONTACT-PHONE','BILLING-ADDRESS-1','BILLING-ADDRESS-2','BILLING-SUBURB','BILLING-STATE','BILLING-POSTCODE','DELIVERY-ADDRESS-1','DELIVERY-ADDRESS-2','DELIVERY-INSTRUCTIONS','DELIVERY-SUBURB','DELIVERY-STATE','DELIVERY-POSTCODE','PROMO-EMAILS','ACTIVE');
-	$adminVariables['CUSTOMER-MANAGEMENT']['DB-QUALIFIER'] = "";
-	$adminVariables['CUSTOMER-MANAGEMENT']['LABEL-FIELD'] = 'EMAIL';
-	$adminVariables['CUSTOMER-MANAGEMENT']['FORM-ELEMENTS'] = array(
-															'FIRST-NAME' => array('TYPE' => 'text', 'LABEL' => 'First Name', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a First Name', 'DATABASE-FIELD' => 'FIRST-NAME', 'DESCRIPTION' => 'Customer First Name'),
-															'LAST-NAME' => array('TYPE' => 'text', 'LABEL' => 'Last Name', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Last Name', 'DATABASE-FIELD' => 'LAST-NAME', 'DESCRIPTION' => 'Customer Last Name'),
-															'EMAIL' => array('TYPE' => 'text', 'LABEL' => 'Email Address', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter an Email Address', 'DATABASE-FIELD' => 'EMAIL', 'DESCRIPTION' => 'Customer Email Address'),
-															'PASSWORD' => array('TYPE' => 'password', 'LABEL' => 'Password', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'PASSWORD', 'DESCRIPTION' => 'Customer Login Password'),
-															'CONTACT-PHONE' => array('TYPE' => 'text', 'LABEL' => 'Contact Phone Number', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Contact Phone Number', 'DATABASE-FIELD' => 'CONTACT-PHONE', 'DESCRIPTION' => 'Contact Phone Number'),
-															'SEPARATOR1' => array('TYPE' => 'separator'),
-															'BILLING-ADDRESS-1' => array('TYPE' => 'text', 'LABEL' => 'Billing Address 1', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Billing Address', 'DATABASE-FIELD' => 'BILLING-ADDRESS-1', 'DESCRIPTION' => 'Customer Billing Address 1'),
-															'BILLING-ADDRESS-2' => array('TYPE' => 'text', 'LABEL' => 'Billing Address 2', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'BILLING-ADDRESS-2', 'DESCRIPTION' => 'Customer Billing Address 2'),
-															'BILLING-SUBURB' => array('TYPE' => 'text', 'LABEL' => 'Billing Suburb', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Billing Suburb', 'DATABASE-FIELD' => 'BILLING-SUBURB', 'DESCRIPTION' => 'Customer Billing Suburb'),
-															'BILLING-STATE' => array('TYPE' => 'select', 'LABEL' => 'Billing State', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Select a Billing State', 'DATABASE-FIELD' => 'BILLING-STATE', 'DESCRIPTION' => 'Customer Billing State', 'DB-SELECT' => array('TABLE' => 'STATES', 'LABEL' => 'LABEL', 'IDENTIFIER' => 'ID')),
-															'BILLING-POSTCODE' => array('TYPE' => 'text', 'LABEL' => 'Billing Postcode', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Billing Postcode', 'DATABASE-FIELD' => 'BILLING-POSTCODE', 'DESCRIPTION' => 'Customer Billing Postcode'),
-															'SEPARATOR2' => array('TYPE' => 'separator'),
-															'DELIVERY-ADDRESS-1' => array('TYPE' => 'text', 'LABEL' => 'Delivery Address 1', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Delivery Address', 'DATABASE-FIELD' => 'DELIVERY-ADDRESS-1', 'DESCRIPTION' => 'Customer Delivery Address 1'),
-															'DELIVERY-ADDRESS-2' => array('TYPE' => 'text', 'LABEL' => 'Delivery Address 2', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'DELIVERY-ADDRESS-2', 'DESCRIPTION' => 'Customer Delivery Address 2'),
-															'DELIVERY-INSTRUCTIONS' => array('TYPE' => 'text', 'LABEL' => 'Delivery Instructions', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'DELIVERY-INSTRUCTIONS', 'DESCRIPTION' => 'Delivery Instructions'),
-															'DELIVERY-SUBURB' => array('TYPE' => 'text', 'LABEL' => 'Delivery Suburb', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Delivery Suburb', 'DATABASE-FIELD' => 'DELIVERY-SUBURB', 'DESCRIPTION' => 'Customer Delivery Suburb'),
-															'DELIVERY-STATE' => array('TYPE' => 'select', 'LABEL' => 'Delivery State', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Select a Delivery State', 'DATABASE-FIELD' => 'DELIVERY-STATE', 'DESCRIPTION' => 'Customer Delivery State', 'DB-SELECT' => array('TABLE' => 'STATES', 'LABEL' => 'LABEL', 'IDENTIFIER' => 'ID')),
-															'DELIVERY-POSTCODE' => array('TYPE' => 'text', 'LABEL' => 'Delivery Postcode', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Please Enter a Delivery Postcode', 'DATABASE-FIELD' => 'DELIVERY-POSTCODE', 'DESCRIPTION' => 'Customer Delivery Postcode'),
-															'SEPARATOR3' => array('TYPE' => 'separator'),
-															'PROMO-EMAILS' => array('TYPE' => 'checkbox', 'LABEL' => 'Send Promotional Emails', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'PROMO-EMAILS', 'DESCRIPTION' => 'Sends the Customer Promotional Emails'),
-															'ACTIVE' => array('TYPE' => 'checkbox', 'LABEL' => 'Active', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'ACTIVE', 'DESCRIPTION' => 'Active Customer')															
-															);
-	$adminVariables['CUSTOMER-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
-	$adminVariables['CUSTOMER-MANAGEMENT']['TABLE'] = 'CUSTOMERS'; // Table to Update
-	$adminVariables['CUSTOMER-MANAGEMENT']['FUNCTIONALITY'] = array('UPDATE','ADD','DELETE'); // Functionality for Page
-
-	// Fields for Orders Management
-	$adminVariables['ORDER-MANAGEMENT']['PAGE-TITLE'] = 'Order Management';
-	$adminVariables['ORDER-MANAGEMENT']['PAGE-FILE'] = 'order-management';
-	$adminVariables['ORDER-MANAGEMENT']['LABELER'] = 'Customer Reference';
-	$adminVariables['ORDER-MANAGEMENT']['DB-QUALIFIER'] = "";
-	$adminVariables['ORDER-MANAGEMENT']['CUSTOM-SCRIPT-ON-LOAD'] = 'true';
-	$adminVariables['ORDER-MANAGEMENT']['DB-ORDERBY'] = " ORDER BY `DATE-SUBMITTED` "; // Ordering
-	$adminVariables['ORDER-MANAGEMENT']['LABEL-FIELD'] = 'PICKING-SLIP';
-	$adminVariables['ORDER-MANAGEMENT']['FORM-ELEMENTS'] = array(
-															'AUDIT-ID' => array('TYPE' => 'readonly', 'LABEL' => 'Payment Reference', 'DATABASE-FIELD' => 'AUDIT-ID', 'DESCRIPTION' => 'Payment Reference'),
-															'PICKING-SLIP' => array('TYPE' => 'readonly', 'LABEL' => 'Customer Reference', 'DATABASE-FIELD' => 'PICKING-SLIP', 'DESCRIPTION' => 'Customer Reference')
-															);
-	$adminVariables['ORDER-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
-	$adminVariables['ORDER-MANAGEMENT']['TABLE'] = 'ORDERS'; // Table to Update
-	//$adminVariables['ORDER-MANAGEMENT']['FUNCTIONALITY'] = array('UPDATE'); // Functionality for Page
-
-	
-	// Fields for Product Group Management
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['PAGE-TITLE'] = 'Product Group Management';
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['PAGE-FILE'] = 'product-group-management';
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['LABELER'] = 'Product Group';
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['DB-FIELDS'] = array('TITLE','BACKGROUND-IMAGE','HERO-PRODUCT','ORDER');
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['DB-QUALIFIER'] = "";
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['LABEL-FIELD'] = 'TITLE';
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['FORM-ELEMENTS'] = array(
-															'PRODUCT-GROUP-TITLE' => array('TYPE' => 'text', 'LABEL' => 'Product Group Title', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Enter a Product Group Title', 'DATABASE-FIELD' => 'TITLE', 'DESCRIPTION' => 'Product Group Title'),
-															'HERO-PRODUCT' => array('TYPE' => 'select', 'LABEL' => 'Hero Product', 'VALIDATION-MESSAGE' => 'Select a Hero Product', 'DATABASE-FIELD' => 'HERO-PRODUCT', 'DESCRIPTION' => 'Hero Product (will show image in boxes)', 'DB-SELECT' => array('TABLE' => 'PRODUCTS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'PRODUCT-CODE', 'WHERE' => '`IMAGE-FILENAME` != "" AND `ACTIVE` = "1"')),
-															'ORDER' => array('TYPE' => 'select', 'LABEL' => 'Order', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'ORDER', 'DESCRIPTION' => 'Ordering', 'DB-SELECT' => array('TABLE' => 'ORDERING', 'LABEL' => 'LABEL', 'IDENTIFIER' => 'ID', 'ORDERBY' => 'ID')),
-															'BACKGROUND-IMAGE' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/backgrounds/', 'LABEL' => 'Background Upload', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'BACKGROUND-IMAGE', 'DESCRIPTION' => 'Category Background Image', 'FILE-TYPES' => array('png','jpg','jpeg','gif'))
-													);
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['TABLE'] = 'PRODUCT-GROUPS'; // Table to Update
-	$adminVariables['PRODUCT-GROUP-MANAGEMENT']['FUNCTIONALITY'] = array('UPDATE','ADD','DELETE'); // Functionality for Page
 	
 	// Fields for Product Category Management
 	$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['PAGE-TITLE'] = 'Product Category Management';

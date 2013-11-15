@@ -1,5 +1,8 @@
 <?php
 
+// Page Management Section File
+$adminVariables['PAGE-LIST']['product-management']['TITLE'] = 'Page Management';
+
 // Fields for Products Management
 $adminVariables['PRODUCT-MANAGEMENT']['PAGE-TITLE'] = 'Products Management';
 $adminVariables['PRODUCT-MANAGEMENT']['PAGE-FILE'] = 'product-management';
