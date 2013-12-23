@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title><?php echo BASE_PATH; ?></title>
+<meta name="description" content="<?php echo SITE_DESCRIPTION; ?>">
+<?php
+// Set the Meta Titles
+$metaHeader = new Headers('meta'); // Include the sets of headers in the content 
+// Define the Set of Headers
+// Add Headers from attributes.json file
+$metaHeader->addHeaders($meta); // Output the Headers to the page
+
+// Set the Links
+$linkHeader = new Headers('link');
+// Add Headers from attributes.json file
+$linkHeader->addHeaders($link); // Output the Headers to the page
+?>
+<!--[if lte IE 8]>
+	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+<body>

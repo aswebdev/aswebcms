@@ -1,0 +1,96 @@
+[
+    {
+        "meta": [
+            {
+                "src": "viewport",
+                "att": [
+                    {
+                        "content": "width=device-width, initial-scale=1, maximum-scale=1"
+                    }
+                ]
+            },
+            {
+                "src": "format-detection",
+                "att": [
+                    {
+                        "content": "telephone=no"
+                    }
+                ]
+            },
+            {
+                "src": "format-detection",
+                "att": [
+                    {
+                        "content": "telephone=no"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "link": [
+            {
+                "src": "apple-touch-icon-57x57-precomposed.png",
+                "att": [
+                    {
+                        "rel": "apple-touch-icon"
+                    }
+                ]
+            },
+            {
+                "src": "apple-touch-icon-72x72-precomposed.png",
+                "att": [
+                    {
+                        "rel": "apple-touch-icon",
+                        "sizes": "72x72"
+                    }
+                ]
+            },
+            {
+                "src": "apple-touch-icon-114x114-precomposed.png",
+                "att": [
+                    {
+                        "rel": "apple-touch-icon",
+                        "size": "114x114"
+                    }
+                ]
+            },
+            {
+                "src": "apple-touch-icon.png",
+                "att": [
+                    {
+                        "rel": "apple-touch-icon",
+                        "size": "114x114",
+                        "type": "image/png"
+                    }
+                ]
+            },
+            {
+                "src": "css/normalize.css",
+                "att": [
+                    {
+                        "rel": "stylesheet"
+                    }
+                ]
+            },
+            {
+                "src": "css/main.css",
+                "att": [
+                    {
+                        "rel": "stylesheet"
+                    }
+                ]
+            }
+        ]
+    },
+	{
+		"script": [
+			 {
+                "src": "js/jquery.js"
+            },
+			{
+                "src": "js/main.js"
+            }
+		]	
+	}
+]
