@@ -35,7 +35,8 @@ define('BASE_URL',PROTOCOL.'');
 define('BASE_URL_CMS',PROTOCOL.'');
 
 // Main includes
-require(BASE_PATH.'includes/files/database.php');
-require(BASE_PATH.'includes/files/functions.php');
+require('database.php');
+require('functions.php');
+require('classes.php');
 
 ?>

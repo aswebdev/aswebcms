@@ -30,33 +30,7 @@
     {
         "link": [
             {
-                "src": "apple-touch-icon-57x57-precomposed.png",
-                "att": [
-                    {
-                        "rel": "apple-touch-icon"
-                    }
-                ]
-            },
-            {
-                "src": "apple-touch-icon-72x72-precomposed.png",
-                "att": [
-                    {
-                        "rel": "apple-touch-icon",
-                        "sizes": "72x72"
-                    }
-                ]
-            },
-            {
-                "src": "apple-touch-icon-114x114-precomposed.png",
-                "att": [
-                    {
-                        "rel": "apple-touch-icon",
-                        "size": "114x114"
-                    }
-                ]
-            },
-            {
-                "src": "apple-touch-icon.png",
+                "src": "apple-touch-icon-precomposed.png",
                 "att": [
                     {
                         "rel": "apple-touch-icon",
@@ -80,16 +54,49 @@
                         "rel": "stylesheet"
                     }
                 ]
+            },
+			{
+                "src": "includes/packages/fancybox/jquery.fancybox.css",
+                "att": [
+                    {
+                        "rel": "stylesheet"
+                    }
+                ]
+            },
+			{
+                "src": "includes/packages/nivo-slider/nivo-slider.css",
+                "att": [
+                    {
+                        "rel": "stylesheet"
+                    }
+                ]
+            },
+			{
+                "src": "includes/packages/nivo-slider/themes/default/default.css",
+                "att": [
+                    {
+                        "rel": "stylesheet"
+                    }
+                ]
             }
         ]
     },
 	{
 		"script": [
 			 {
-                "src": "js/jquery.js"
+                "src": "js/jquery.min.js"
+            },
+			 {
+                "src": "js/modernizr.min.js"
             },
 			{
                 "src": "js/main.js"
+            },
+			{
+                "src": "includes/packages/fancybox/jquery.fancybox.pack.js"
+            },
+			{
+                "src": "includes/packages/nivo-slider/jquery.nivo.slider.pack.js"
             }
 		]	
 	}
