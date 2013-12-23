@@ -79,9 +79,9 @@ class Headers {
 	// Add the headers to the page
 	function addHeaders($attr) {
 		if(is_array($attr)) {
-			foreach($attr as $a) {
-				echo "<".$this->name." ".$this->inc."=\"".$a['src']."\" ";
-				if(is_array($a['att'])) { foreach($a['att'] as $b => $c) { echo "$b=\"".$c."\""; } } // Loop through the extra attributes for the headers to determine what to include
+			foreach($files as $f) {
+				echo "<".$this->name." ".$this->inc."=\"".$f['src']."\" ";
+				if(is_array($f['atts'])) { foreach($f['atts'] as $k => $v) { echo "$k=\"".$v."\""; } } // Loop through the extra attributes for the headers to determine what to include
 				echo " />";
 			}
 		}
