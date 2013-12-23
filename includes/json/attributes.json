@@ -55,7 +55,7 @@
                     }
                 ]
             },
-			{
+            {
                 "src": "includes/packages/fancybox/jquery.fancybox.css",
                 "att": [
                     {
@@ -63,7 +63,7 @@
                     }
                 ]
             },
-			{
+            {
                 "src": "includes/packages/nivo-slider/nivo-slider.css",
                 "att": [
                     {
@@ -71,7 +71,7 @@
                     }
                 ]
             },
-			{
+            {
                 "src": "includes/packages/nivo-slider/themes/default/default.css",
                 "att": [
                     {
@@ -81,23 +81,23 @@
             }
         ]
     },
-	{
-		"script": [
-			 {
+    {
+        "script": [
+            {
                 "src": "js/jquery.min.js"
             },
-			 {
+            {
                 "src": "js/modernizr.min.js"
             },
-			{
+            {
                 "src": "js/main.js"
             },
-			{
+            {
                 "src": "includes/packages/fancybox/jquery.fancybox.pack.js"
             },
-			{
+            {
                 "src": "includes/packages/nivo-slider/jquery.nivo.slider.pack.js"
             }
-		]	
-	}
+        ]
+    }
 ]

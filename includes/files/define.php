@@ -1,9 +1,7 @@
 <?php 
 ini_set('session.gc_maxlifetime', 1200); // Session Lifetime in seconds
-
-// Switch on/off for PHP error debugging
-// ini_set('display_errors','On');
-// ini_set('error_reporting',E_ALL);
+//ini_set('display_errors','On');
+//ini_set('error_reporting',E_ALL);
 
 session_start(); // Start a new Session
 
@@ -34,9 +32,10 @@ if ($_SERVER['HTTPS'] == "on") {
 define('BASE_URL',PROTOCOL.'');
 define('BASE_URL_CMS',PROTOCOL.'');
 
-// Main includes
-require('database.php');
-require('functions.php');
-require('classes.php');
+$atts = json_decode(file_get_contents('../json/attributes.json'),1); // Get all the attribute JSON data
+
+require('database.php'); // Include Database
+require('functions.php'); // Include Functions
+require('classes.php'); // Include Classes
 
 ?>
