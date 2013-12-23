@@ -4,17 +4,17 @@
 $adminVariables['PAGE-LIST']['product-management']['TITLE'] = 'Product Category Management';
 
 // Fields for Product Group Management
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['PAGE-TITLE'] = 'Product Category Management';
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['PAGE-FILE'] = 'product-category-management';
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['LABELER'] = 'Product Category';
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['DB-FIELDS'] = array('TITLE','PRODUCT-GROUP');
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['DB-QUALIFIER'] = "";
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['LABEL-FIELD'] = 'TITLE';
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['FORM-ELEMENTS'] = array(
-														'TITLE' => array('TYPE' => 'text', 'LABEL' => 'Title', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Enter a Product Group Title', 'DATABASE-FIELD' => 'TITLE', 'DESCRIPTION' => 'Product Group Title'),
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['PAGE-TITLE'] = 'Product Category Management';
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['PAGE-FILE'] = 'product-category-management';
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['LABELER'] = 'Product Category';
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['DB-FIELDS'] = array('TITLE','PRODUCT-CATEGORY');
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['DB-QUALIFIER'] = "";
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['LABEL-FIELD'] = 'TITLE';
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['FORM-ELEMENTS'] = array(
+														'TITLE' => array('TYPE' => 'text', 'LABEL' => 'Title', 'REQUIRED' => 'true', 'VALIDATION-MESSAGE' => 'Enter a Product Category Title', 'DATABASE-FIELD' => 'TITLE', 'DESCRIPTION' => 'Product Category Title'),
 														);
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['TABLE'] = 'PRODUCT-GROUPS'; // Table to Update
-$adminVariables['PRODUCT-GROUP-MANAGEMENT']['FUNCTIONALITY'] = array('UPDATE','ADD','DELETE'); // Functionality for Page
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['TABLE'] = 'PRODUCT-CATEGORIES'; // Table to Update
+$adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['FUNCTIONALITY'] = array('UPDATE','ADD','DELETE'); // Functionality for Page
 
 ?>

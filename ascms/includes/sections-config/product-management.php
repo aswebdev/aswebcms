@@ -1,13 +1,13 @@
 <?php
 
 // Page Management Section File
-$adminVariables['PAGE-LIST']['product-management']['TITLE'] = 'Page Management';
+$adminVariables['PAGE-LIST']['product-management']['TITLE'] = 'Products Management';
 
 // Fields for Products Management
 $adminVariables['PRODUCT-MANAGEMENT']['PAGE-TITLE'] = 'Products Management';
 $adminVariables['PRODUCT-MANAGEMENT']['PAGE-FILE'] = 'product-management';
 $adminVariables['PRODUCT-MANAGEMENT']['LABELER'] = 'Product';
-$adminVariables['PRODUCT-MANAGEMENT']['DB-FIELDS'] = array('TITLE','DESCRIPTION','GIFT-WRAPPING','NEW-PRODUCT','SELL-POINTS','YOUTUBE-LINK','PRODUCT-CATEGORY','PRODUCT-GROUP','PRODUCT-SUBGROUP','ACTIVE','MALE','FEMALE','RELATED-PRODUCT-1','RELATED-PRODUCT-2','RELATED-PRODUCT-3','RELATED-PRODUCT-4','UNAVAILABLE-FOR-PURCHASE','COMING-SOON','METRO-ONLY','IMAGE-FILENAME-CAPTION','IMAGE-FILENAME-CAPTION-2','IMAGE-FILENAME-CAPTION-3','IMAGE-FILENAME-CAPTION-4','IMAGE-FILENAME-CAPTION-5','IMAGE-FILENAME-CAPTION-6','IMAGE-FILENAME-CAPTION-7','IMAGE-FILENAME-CAPTION-8',);
+$adminVariables['PRODUCT-MANAGEMENT']['DB-FIELDS'] = array('TITLE','DESCRIPTION','PRODUCT-CATEGORY','ACTIVE','KEY-FEATURES','PRODUCT-GROUP','PRICE');
 $adminVariables['PRODUCT-MANAGEMENT']['DB-ORDERBY'] = " ORDER BY `TITLE` "; // Ordering
 $adminVariables['PRODUCT-MANAGEMENT']['LABEL-FIELD'] = 'TITLE';
 $adminVariables['PRODUCT-MANAGEMENT']['DISPLAY-KEY-IN-LABEL'] = true;
@@ -17,7 +17,6 @@ $adminVariables['PRODUCT-MANAGEMENT']['FORM-ELEMENTS'] = array(
 	'SHORT-DESCRIPTION' => array('TYPE' => 'textarea', 'SETTINGS' => array('WIDTH' => 600, 'HEIGHT' => '300'), 'LABEL' => 'Product Description', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'SHORT-DESCRIPTION', 'DESCRIPTION' => 'Product Description'),														
 	'KEY-FEATURES' => array('TYPE' => 'textarea', 'SETTINGS' => array('WIDTH' => 600, 'HEIGHT' => '300'), 'LABEL' => 'Key Features', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'KEY-FEATURES', 'DESCRIPTION' => 'Key Features - Separate with new Line'),														
 	'PRODUCT-CATEGORY' => array('TYPE' => 'select', 'LABEL' => 'Product Category', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Product Category', 'DATABASE-FIELD' => 'PRODUCT-CATEGORY', 'DESCRIPTION' => 'Product Category', 'DB-SELECT' => array('TABLE' => 'PRODUCT-CATEGORIES', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'ID')),
-	'PRODUCT-GROUP' => array('TYPE' => 'select', 'LABEL' => 'Product Group', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Product Group', 'DATABASE-FIELD' => 'PRODUCT-GROUP', 'DESCRIPTION' => 'Product Group', 'DB-SELECT' => array('TABLE' => 'PRODUCT-GROUPS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'ID')),
 	'DOCUMENT-UPLOAD' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'uploads/products/', 'LABEL' => 'Document Upload', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'DOCUMENT-UPLOAD', 'DESCRIPTION' => 'Document Upload', 'FILE-TYPES' => array('pdf')),
 	'IMAGE-FILENAME' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100','195x157','400x350','700x500')),
 	'PRICE' => array('TYPE' => 'text', 'LABEL' => 'Price', 'DATABASE-FIELD' => 'PRICE', 'DESCRIPTION' => 'Price', 'PRE-PEND-FIELD' => "$"),
