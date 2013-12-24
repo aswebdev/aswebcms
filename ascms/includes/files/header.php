@@ -5,9 +5,9 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta name="robots" content="noindex, nofollow" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL_CMS; ?>includes/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL_CMS; ?>includes/css/style.min.css" />
 <script type="text/javascript" src="<?php echo BASE_URL; ?>includes/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL_CMS; ?>includes/js/scripts.js?<?php echo rand(0,5000); ?>"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_CMS; ?>includes/js/scripts.min.js?<?php echo rand(0,5000); ?>"></script>
 </head>
 <body>
 
@@ -34,8 +34,8 @@
 <div id="topNavigationBar">
 	<div id="siteNameHeading"><?php echo SITE_NAME; ?> <span id="siteNameSubheading">Website Administration</span></div>
    	<?php if($userLoggedIn == true) { ?>
-    <div id="searchIcon"><a href="<?php echo BASE_URL_CMS ?>includes/modules/search.php" class="searchButton" title="Search"><img src="<?php echo BASE_URL_CMS; ?>includes/img/search-icon.png" border="0" /></a></div>
-    <div id="logoutIcon"><a href="<?php echo BASE_URL_CMS ?>index.php?action=logout" class="logoutButton" title="Logout"><img src="<?php echo BASE_URL_CMS; ?>includes/img/logout-icon.png" border="0" /></a></div>
+    <div id="searchIcon"><a href="<?php echo BASE_URL_CMS ?>includes/modules/search.php" class="searchButton" title="Search"><img src="<?php echo BASE_URL_CMS; ?>includes/img/dest/search-icon.png" border="0" /></a></div>
+    <div id="logoutIcon"><a href="<?php echo BASE_URL_CMS ?>index.php?action=logout" class="logoutButton" title="Logout"><img src="<?php echo BASE_URL_CMS; ?>includes/img/dest/logout-icon.png" border="0" /></a></div>
 	<div id="searchText">Search for Products &amp; Pages</div>
     <?php } ?>
     <div id="logoutText">Logout of Administration</div>

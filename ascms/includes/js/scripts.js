@@ -128,7 +128,7 @@ $(document).ready(function(){
 		var searchCustomers = '';
 		
 		if(searchVal.length > 3) {
-			$('#searchResults').html('<img src="includes/img/ajax-loader-blue.gif" border="0" />');
+			$('#searchResults').html('<img src="includes/img/dest/ajax-loader-blue.gif" border="0" />');
 			if($("#searchProducts").prop('checked') == true) { searchProducts = '1'; }
 			if($("#searchPages").prop('checked') == true) { searchPages = '1'; }
 			if($("#searchCustomers").prop('checked') == true) { searchCustomers = '1'; }
