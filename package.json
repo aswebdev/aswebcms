@@ -1,0 +1,24 @@
+{
+  "name": "aswebcms",
+  "version": "0.1.0",
+  "description": "aswebcms CMS",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "~0.4.2"
+  },
+  "devDependencies": {
+    "grunt-contrib-uglify": "~0.2.7",
+	"grunt-contrib-cssmin": "~2.0.4",
+	"grunt-contrib-imagemin": "~0.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aswebdev/aswebcms.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aswebdev/aswebcms/issues"
+  },
+  "homepage": "https://github.com/aswebdev/aswebcms"
+}
