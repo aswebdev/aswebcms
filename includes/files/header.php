@@ -8,18 +8,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title><?php echo BASE_PATH; ?></title>
 <meta name="description" content="<?php echo SITE_DESCRIPTION; ?>">
-<?php
-// Set the Meta Titles
-$metaHeader = new Headers('meta'); // Include the sets of headers in the content 
-// Define the Set of Headers
-// Add Headers from attributes.json file
-$metaHeader->addHeaders($meta); // Output the Headers to the page
-
-// Set the Links
-$linkHeader = new Headers('link');
-// Add Headers from attributes.json file
-$linkHeader->addHeaders($link); // Output the Headers to the page
-?>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/main.css">
+<script src="js/vendor/modernizr-2.6.2.min.js"></script>
 <!--[if lte IE 8]>
 	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->

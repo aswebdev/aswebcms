@@ -84,4 +84,26 @@ function dbSelect($select='`*`',$table=array(),$where=array(),$orderby=false,$li
 	return $return; // Return the Array
 }
 
+// Get Page Variables from database
+function getPageVariables($pageName='') {
+	global $conn;
+	
+	if(empty($pageName)) { return false; } // No Page name
+	// Do Select
+	$sql = "SELECT `VALUES` FROM `SITE-CONFIG` WHERE `PAGE-NAME` = '".mysql_real_escape_string($pageName)."'";
+	if($res = mysql_query($sql,$conn)) {
+		if(mysql_num_rows($res) == 1) {
+			$r = mysql_fetch_array($res);
+			if(!empty($r['VALUES'])) {
+				$variablesArray = json_decode($r['VALUES'],true);
+				return $variablesArray;
+			} else {
+				return false; // No Values
+			}
+		} else {
+			return false; // No Row
+		}
+	}
+}
+
 ?>
