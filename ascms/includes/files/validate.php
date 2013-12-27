@@ -1,4 +1,5 @@
 <?php
+if(!isset($_POST['formAction'])) { $_POST['formAction'] = ''; }
 if($_POST['formAction'] == "login") { 
 	if($conn) {
 		$sql = "SELECT `USERNAME`,`PASSWORD`,`ID`,`EMAIL-ADDRESS` FROM `ADMIN-USERS` WHERE `USERNAME`=\"".mysql_real_escape_string($_POST['username'])."\" AND `PASSWORD`=\"".md5($_POST['password'])."\" AND `ACTIVE` = '1'";
