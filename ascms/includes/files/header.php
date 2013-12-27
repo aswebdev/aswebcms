@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL_CMS; ?>includes/css/style.min.css" />
-<script type="text/javascript" src="<?php echo BASE_URL; ?>includes/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL_CMS; ?>includes/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL_CMS; ?>includes/js/scripts.min.js?<?php echo rand(0,5000); ?>"></script>
 </head>
 <body>
