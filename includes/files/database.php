@@ -5,7 +5,7 @@ if(!$conn = mysql_connect(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD)){
 	echo ERROR_MESSAGE;
 	exit;
 } else {
-	if(!mysql_select_db(MYSQL_TABLE)){
+	if(!mysql_select_db(MYSQL_DB)){
 		// Error, no database table
 		echo ERROR_MESSAGE;
 		exit;

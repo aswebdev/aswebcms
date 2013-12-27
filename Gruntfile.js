@@ -36,7 +36,14 @@ module.exports = function(grunt) {
         	dest: 'ascms/includes/img/dest/'                  // Destination path prefix
       	}]
 		}
-	  }
+	  }/*,
+	  sass: {
+		dist: {
+		  files: {
+			'ascms/includes/css/style.css': 'ascms/includes/css/style.scss'
+		  }
+		}
+	  }*/
 	});
 	
 	// Load the plugin that provides the "uglify" task.

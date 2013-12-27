@@ -28,7 +28,7 @@ if(isset($_REQUEST['errorMsg'])) {
 <table border="0" cellspacing="5">
 <tr align="left" valign="middle">
 <td width="50%" align="right" valign="middle" class="pageHeader"><strong>Username:</strong></td>
-<td width="50%" align="left" valign="middle"><input name="usernameGiftplayground" type="text" class="formText" id="username" /></td>
+<td width="50%" align="left" valign="middle"><input name="username" type="text" class="formText" id="username" /></td>
 </tr>
 <tr valign="middle">
 <td width="50%" align="right" valign="middle" class="pageHeader"><strong>Password:</strong></td>
