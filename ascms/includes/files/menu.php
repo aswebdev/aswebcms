@@ -1,8 +1,11 @@
 <ul id="menu" class="collapse">
+
 <?php
 if($userLoggedIn == true) {
 	// CMS Modules
 	// Loop Modules Array
+	
+	echo "<li><a href=\"".BASE_URL_CMS."module.php?id=main\" title=\"Home\"><i class=\"fa fa-home\"></i>&nbsp;Home</a></li>";
 	
 	if(is_array($pageListVariables)) {
 		foreach($pageListVariables as $pageId => $pageSettings) {
@@ -11,6 +14,7 @@ if($userLoggedIn == true) {
 			// Current Pages Matches Menu
 			if($pageId == $moduleRequest) {
 				$pageMatch = true;
+				if(!isset($pageSettings['SHOW-SUBITEMS'])) { $pageSettings['SHOW-SUBITEMS'] = false; }
 				if($pageSettings['SHOW-SUBITEMS'] == 'true') {				
 					// Loop Pages
 					$sql = "SELECT `".$VARS['DB-KEY']."`,`".$VARS['LABEL-FIELD']."` FROM `".$VARS['TABLE']."`";

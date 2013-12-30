@@ -13,35 +13,50 @@ if(isset($_REQUEST['action'])) {
 }
  
 require(BASE_PATH_CMS."includes/files/header.php");  // CMS Header File
+
 ?>
-<p><?php echo SITE_NAME; ?> Administration</p>
+<div class="col-lg-6" style="margin:0 auto;float:none;">
 <?php
-
+// Error Message
 if(isset($_REQUEST['errorMsg'])) {
-	echo "<p class=\"errorMsgRed\">".urldecode($_REQUEST['errorMsg'])."</p>";
+	echo "<div class=\"alert alert-danger\" style=\"margin-top:10px;\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>".urldecode($_REQUEST['errorMsg'])."</div>";
 }
-
 ?>
-<p>Please login with your <strong>Username</strong> &amp; <strong>Password</strong></p>
-<form action="module.php?id=main" method="post" name="formLogin">
-<input type="hidden" name="formAction" value="login" />
-<table border="0" cellspacing="5">
-<tr align="left" valign="middle">
-<td width="50%" align="right" valign="middle" class="pageHeader"><strong>Username:</strong></td>
-<td width="50%" align="left" valign="middle"><input name="username" type="text" class="formText" id="username" /></td>
-</tr>
-<tr valign="middle">
-<td width="50%" align="right" valign="middle" class="pageHeader"><strong>Password:</strong></td>
-<td width="50%" align="left" valign="middle"><input name="password" type="password" class="formText" id="password" /></td>
-</tr>
-<tr>
-<td width="50%" align="right" valign="middle">&nbsp;</td>
-<td width="50%" align="left" valign="middle">
-<input name="Submit" type="submit" class="formButton" value="Login" title="Login" />
-</td>
-</tr>
-</table>
-</form>
+<div class="box dark">
+  <header>
+    <h5>Login to the Administration</h5>
+  </header>
+  <div id="div-1" class="accordion-body collapse in body">
+    <form class="form-horizontal" action="module.php?id=main" method="post" name="formLogin" >
+      <input type="hidden" name="formAction" value="login" />
+      <div class="form-group">
+        <label for="text1" class="control-label col-lg-4">Username</label>
+        <div class="col-lg-4">
+          <input type="text" name="username" placeholder="Enter Your Username Here" class="form-control">
+        </div>
+      </div>
+      <!-- /.form-group -->
+      <div class="form-group">
+        <label for="pass1" class="control-label col-lg-4">Password</label>
+        <div class="col-lg-4">
+          <input class="form-control" type="password" id="pass1" data-original-title="Please use your secure password" data-placement="top" placeholder="Enter Your Password Here" name="password">
+        </div>
+      </div>
+      <!-- /.form-group -->
+      <!-- /.form-group -->
+      <div class="form-group">
+        <label for="login" class="control-label col-lg-4">&nbsp;</label>
+        <div class="col-lg-8">
+          <input type="submit" class="btn btn-primary btn-rect" value="Login" />
+        </div>
+      </div>
+      <!-- /.form-group -->      
+      
+      
+      
+    </form>
+  </div>
+</div>
 <?php
 require(BASE_PATH_CMS."includes/files/footer.php");  // CMS Footer File
 ?>

@@ -20,6 +20,9 @@ define('MYSQL_DB',''); // The MySQL Table
 define('MYSQL_HOST',''); // The MySQL Host (usually 'localhost')
 define('DEBUG',false); // Switch on/off debugging during testing
 
+// Image Sizes
+define('IMAGE_THUMB_SIZE','100x100');
+
 // Check if Requesting Port 443 SSL. If so update the Protocol of the URL used across the website
 if(!isset($_SERVER['HTTPS'])) { $_SERVER['HTTPS'] = 'off'; }
 

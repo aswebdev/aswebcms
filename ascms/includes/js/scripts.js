@@ -18,15 +18,6 @@ $(document).ready(function(){
 		},200);
 	}
 	
-	// Get height of main content section. Expand if needed
-	setTimeout(function() { 
-		var currentHeight  = parseFloat(($('.colright').css('height')));
-		
-		if(currentHeight < window.innerHeight) {
-			$('.colright').css('min-height',window.innerHeight+'px');
-		}
-	},200);
-	
 	// If select box changes load the new URL from the 'value' field
 	$('.pageReload').change(function() {
 		pageReload = $(this).val();
@@ -58,8 +49,7 @@ $(document).ready(function(){
 		// Check the required Elements
 		$('.requiredElement').each(function() {
 			if($(this).val() == '') {
-				msg += "<p>"+$(this).data('error')+"</p>\n";
-				$(this).css('backgroundColor','rgb(255,0,0)');
+				msg += $(this).data('error')+"<br />\n";
 			}
 		});	
 		
@@ -87,7 +77,7 @@ $(document).ready(function(){
 				
 				filesSupportedLabel = filesSupportedLabel.substring(0, filesSupportedLabel.length - 2);		
 				if(hasFileMatch == false) {
-					msg += "<p>File Upload for <strong>"+$(this).data('label')+"</strong> is not a supported file type. The file must be "+filesSupportedLabel+"</p>\n";
+					msg += "File Upload for <strong>"+$(this).data('label')+"</strong> is not a supported file type. The file must be "+filesSupportedLabel+"<br />\n";
 				}
 				
 			}
@@ -95,7 +85,7 @@ $(document).ready(function(){
 		
 
 		if(msg != '') {
-			msg = '<span class="searchHeading">Please fix the following errors!</span>'+msg;
+			msg = '<strong>Please fix the following errors!</strong><br />'+msg;
 		}
 		
 		checkPopUp(msg);		
@@ -162,7 +152,7 @@ $(document).ready(function(){
 	// Check if Popup Needs to loadup
 	function checkPopUp(msg) {
 		if(msg != '') {
-			$('#popupContent').html(msg);
+			$(".popup-msg").html("<div class=\"alert alert-danger\" style=\"margin-top:10px;\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+msg+"</div>");
 			setTimeout(function(){ loadPopup(); }, 500); // .5 second
 		} else {
 			$('.adminForm').submit(); // Safe to submit form	
@@ -172,9 +162,7 @@ $(document).ready(function(){
 	// Loads up Popup Div
 	function loadPopup() { 
 		if(popupStatus == 0) { // if value is 0, show popup
-			$("#toPopup").fadeIn(0500); // fadein popup div
-			$("#backgroundPopup").css("opacity", "0.7"); // css opacity, supports IE7, IE8
-			$("#backgroundPopup").fadeIn(0001); 
+			$(".popup-msg").fadeIn(0500); // fadein popup div
 			popupStatus = 1; // and set value to 1
 		}	
 	}

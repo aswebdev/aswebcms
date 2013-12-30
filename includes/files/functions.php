@@ -106,4 +106,74 @@ function getPageVariables($pageName='') {
 	}
 }
 
+function failedLogin($msg) {
+	$_SESSION = ""; // Empty Session
+	header("Location:".BASE_URL_CMS."?errorMsg=".urlencode($msg)); // Send to Admin Home With Message
+}
+
+function updateDatabaseEntry($table="",$keys=array(),$entryType="", $primaryKey="") {
+	global $conn, $_POST;
+	
+	if(empty($table)) { return false; } // No Database Tablet Selected
+	if(empty($keys)) { return false; } // No Keys to update with
+	if(empty($entryType)) { return false; } // No Entry Types (INSERT, UPDATE)
+	if(empty($primaryKey)) { return false; } // No Primary Key
+	
+	// Reset SQL
+	$sql = ""; 
+	$sqlRow = "";
+	$isDelete = false;
+	
+	switch($entryType) {
+		case "INSERT":
+			$sql = "INSERT INTO `".$table."` SET ";
+		break;
+		case "UPDATE":
+			$sql = "UPDATE `".$table."` SET ";
+			$primaryPostValue = '';
+			if(isset($_POST[$primaryKey])) { $primaryPostValue = $_POST[$primaryKey]; }
+			$sqlRow = " WHERE `".$primaryKey."` = '".$primaryPostValue."' ";
+		break;
+		case "DELETE":
+			$sql = "DELETE FROM `".$table."` ";
+			if(isset($_POST[$primaryKey])) { $primaryPostValue = $_POST[$primaryKey]; }
+			$sqlRow = " WHERE `".$primaryKey."` = '".$primaryPostValue."' ";
+			$isDelete = true;
+		break;
+		default:
+			return false; // No valid Entry type, Fail.
+	}
+	
+	// Loop Keys
+	if($isDelete != true) {
+		if(is_array($keys)) {
+			foreach($keys as $k) {
+				$postValue = "";
+				if($k == 'DATE-MODIFIED') { $_POST[$k] = date('Y-m-d H:i:s'); } // If Date Modified Set Automatically
+				if(isset($_POST[$k])) { $postValue = $_POST[$k]; }
+				$sql .= "`".$k."` = '".mysql_real_escape_string($postValue)."', ";
+			}
+			$sql = substr($sql,0,-2); // Remove the last comma from the query
+		} else {
+			return false; // Not a valid Key Array. Fail.	
+		}
+	}
+	
+	$sql = $sql.$sqlRow; // Do Join
+	
+	if($conn) { // Make Sure we have a database connection
+		if($res = mysql_query($sql,$conn)) {
+			if($entryType == 'INSERT') {
+				$id  = mysql_insert_id();
+			} else {
+				$id  = $primaryPostValue;
+			}
+			return $id;
+		}
+	} else {
+		return false; // No Database	
+	}
+	
+}
+
 ?>

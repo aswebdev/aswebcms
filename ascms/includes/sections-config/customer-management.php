@@ -1,7 +1,7 @@
 <?php
 
 // Page Management Section File
-$adminVariables['PAGE-LIST']['customer-management']['TITLE'] = 'Customer Management';
+$adminVariables['PAGE-LIST']['customer-management']['TITLE'] = 'Customer Manager';
 
 // Fields for Customers Management
 $adminVariables['CUSTOMER-MANAGEMENT']['PAGE-TITLE'] = 'Customers Management';

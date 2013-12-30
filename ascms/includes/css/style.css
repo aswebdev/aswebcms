@@ -257,21 +257,6 @@ label {
 	padding-bottom:10px;
 }
 
-.submitButton, .deleteButton {
-	display:inline-block;
-	position:relative;
-	font-family:OpenSansSemibold, Arial, Helvetica, sans-serif;
-	font-size:14px;
-	background-color:#1AA9E0;
-	color:#FFF;
-	text-decoration:none;
-	padding:5px;
-}
-
-.submitButton:hover, .deleteButton:hover {
-	background-color:#2980B9;	
-}
-
 .lineHolder {
 	position:relative;
 	height:17px;
@@ -327,4 +312,8 @@ label {
 	position:relative;
 	right:215px;
 	margin-top: 5px;
+}
+
+.popup-msg {
+	display:none;	
 }
