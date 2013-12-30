@@ -2,6 +2,7 @@
 
 // Page Management Section File
 $adminVariables['PAGE-LIST']['product-group-management']['TITLE'] = 'Product Group Manager';
+$adminVariables['PAGE-LIST']['product-group-management']['ICON'] = 'list-alt';
 
 // Fields for Product Group Management
 $adminVariables['PRODUCT-GROUP-MANAGEMENT']['PAGE-TITLE'] = 'Product Group Management';

@@ -2,6 +2,7 @@
 
 // Page Management Section File
 $adminVariables['PAGE-LIST']['page-management']['TITLE'] = 'Page Manager';
+$adminVariables['PAGE-LIST']['page-management']['ICON'] = 'file';
 
 // Fields for Page Management
 $adminVariables['PAGE-MANAGEMENT']['PAGE-TITLE'] = 'Pages Management'; // Title of the Admin Section

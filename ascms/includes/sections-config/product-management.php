@@ -2,6 +2,7 @@
 
 // Page Management Section File
 $adminVariables['PAGE-LIST']['product-management']['TITLE'] = 'Products Manager';
+$adminVariables['PAGE-LIST']['product-management']['ICON'] = 'headphones';
 
 // Fields for Products Management
 $adminVariables['PRODUCT-MANAGEMENT']['PAGE-TITLE'] = 'Products Management';

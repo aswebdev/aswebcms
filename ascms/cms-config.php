@@ -12,12 +12,12 @@ if($conn) {
 	// Page List Array. This is an array of the Sections that will be associated with the CMS
 	// Initially, page-management, product-management and banner-management are available sections
 	$sectionsArray = array(
+		'banner-management',
 		'page-management',
 		'product-management',
 		'product-category-management',
 		'product-group-management',
-		'customer-management',
-		'banner-management'
+		'customer-management'
 	);
 	
 	// Loop the Array and include the CMS sections

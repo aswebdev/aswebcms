@@ -2,6 +2,7 @@
 
 // Page Management Section File
 $adminVariables['PAGE-LIST']['product-category-management']['TITLE'] = 'Product Category Manager';
+$adminVariables['PAGE-LIST']['product-category-management']['ICON'] = 'list';
 
 // Fields for Product Group Management
 $adminVariables['PRODUCT-CATEGORY-MANAGEMENT']['PAGE-TITLE'] = 'Product Category Management';

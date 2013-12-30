@@ -1,7 +1,7 @@
 <?php
 
 $adminVariables['PAGE-LIST']['banner-management']['TITLE'] = 'Banner Manager'; // Page Management Section File
-
+$adminVariables['PAGE-LIST']['banner-management']['ICON'] = 'puzzle-piece'; // Page Management Icon
 // Fields for Banner Management
 $adminVariables['BANNER-MANAGEMENT']['PAGE-TITLE'] = 'Banner Manager';
 $adminVariables['BANNER-MANAGEMENT']['PAGE-FILE'] = 'banner-management';
