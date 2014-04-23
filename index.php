@@ -1,16 +1,32 @@
 <?php
-include('includes/files/define.php'); // Include Definition File
-include('includes/files/header.php'); // Include The Header
+
+include( 'includes/files/define.php' );
+
+include( 'includes/files/header.php' );
+
 $module = '';
-if(isset($_REQUEST['module'])) { $module = $_REQUEST['module']; } 
-if(!empty($_REQUEST['module'])) {
-	if(is_file('includes/modules/'.$module.'.php')) {
-		include('includes/modules/'.$module.'.php'); // Include the Module
-	} else {
-		include('includes/modules/home.php'); // Error, Include the Home Module
-	}
+
+if( isset( $_REQUEST['module'] ) ) { 
+    
+    $module = $_REQUEST['module']; 
+
+} 
+
+if( !empty( $_REQUEST['module'] ) ) {
+    
+	if( is_file( 'includes/modules/' . $module . '.php' ) ) {
+        
+		include( 'includes/modules/' . $module . '.php' );
+	
+    } else {
+		
+        include( 'includes/modules/home.php' ); //
+
+    }
 } else {
-	include('includes/modules/home.php'); // Include the Home Module
+	
+    include( 'includes/modules/home.php' ); 
+
 }
-include('includes/files/footer.php'); // Include Footer
-?>
+
+include( 'includes/files/footer.php' );

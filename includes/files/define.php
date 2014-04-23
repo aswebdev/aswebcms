@@ -1,48 +1,79 @@
 <?php 
-ini_set('session.gc_maxlifetime', 1200); // Session Lifetime in seconds
-//ini_set('display_errors','On');
-//ini_set('error_reporting',E_ALL);
 
-session_start(); // Start a new Session
+ini_set( 'session.gc_maxlifetime' , 1200 );
 
-// Site Constants
-/*
-define('BASE_PATH',''); // Website Base Path /home2/somesite/public_html/ 
-define('BASE_PATH_CMS',BASE_PATH.'ascms/'); // CMS Base Path /home2/somesite/public_html/xcms/
-define('SITE_NAME',''); // Used in Meta Titles and Misc places on the website 
-define('SITE_DESCRIPTION',''); // Used in Meta Descriptions on the website 
-define('ERROR_MESSAGE','Sorry, we are having problems at the moment. Please come back later.'); // General Site Error Message
-define('TECH_EMAIL',''); // Used for Database errors and debugging
-define('BCC_EMAIL',''); // Used for Sending Emails to particular email addresses
-define('MYSQL_USERNAME',''); // The MySQL Username
-define('MYSQL_PASSWORD',''); // The MySQL Password
-define('MYSQL_DB',''); // The MySQL Table
-define('MYSQL_HOST',''); // The MySQL Host (usually 'localhost')
-define('DEBUG',false); // Switch on/off debugging during testing
+ini_set( 'display_errors' , 1 );
 
-// Image Sizes
-define('IMAGE_THUMB_SIZE','100x100');
+ini_set( 'error_reporting' , 'E_ALL' );
 
-// Check if Requesting Port 443 SSL. If so update the Protocol of the URL used across the website
-if(!isset($_SERVER['HTTPS'])) { $_SERVER['HTTPS'] = 'off'; }
+session_start();
 
-if ($_SERVER['HTTPS'] == "on") { 
-	define('PROTOCOL','https://');
-	$ssl = true;
-} else {
-	define('PROTOCOL','http://');
-	$ssl = false;	
+// Definition of the site constants
+
+define( 'DEV_MODE' , false ); // will work from the /dev/ folder rather than the /dist/ folder
+
+define( 'BASE_PATH' , dirname(dirname(dirname(__FILE__))) . '/' );
+
+define( 'BASE_PATH_CMS' , BASE_PATH.'ascms/' ); // CMS Base Path
+
+if( !isset( $_SERVER['HTTPS'] ) ) { 
+    
+    $_SERVER['HTTPS'] = 'off'; 
+
 }
 
-// Define the HTTP URLs used for the base URL of the site and the CMS
-define('BASE_URL',PROTOCOL.'');
-define('BASE_URL_CMS',PROTOCOL.'');
-*/
+if ( $_SERVER['HTTPS'] == "on" ) { 
+	
+    define( 'PROTOCOL' , 'https://' );
+	
+    $ssl = true;
 
+} else {
+	
+    define( 'PROTOCOL' , 'http://' );
+	
+    $ssl = false;	
 
-require('define-local.php'); // Include / Exclude This for local testing. Constants may need to be updated for local locations
-require('database.php'); // Include Database
-require('functions.php'); // Include Functions
-require('classes.php'); // Include Classes
+}
 
-?>
+define( 'BASE_DOMAIN' , '192.168.0.3/~andrew/ASCMS/' );
+
+define( 'BASE_URL' , PROTOCOL . BASE_DOMAIN );
+
+define( 'BASE_URL_CMS' , PROTOCOL . BASE_DOMAIN . 'ascms/' );
+
+if( DEV_MODE ) {
+    
+    define( 'BASE_URL_CMS_ASSETS' , PROTOCOL . BASE_DOMAIN . 'ascms/dev/' );
+    
+} else {
+    
+    define( 'BASE_URL_CMS_ASSETS' , PROTOCOL . BASE_DOMAIN . 'ascms/dist/' );
+    
+}
+
+define( 'SITE_NAME' , 'AS WEB' );
+
+define( 'SITE_DESCRIPTION' , 'AS WEB TEST DESCRIPTION');
+
+define( 'ERROR_MESSAGE' , 'Sorry, we are having problems at the moment. Please come back later.' );
+
+define( 'TECH_EMAIL' , 'andrew.schadendorff@gmail.com' ); // Used for Database errors and debugging
+
+define( 'ADMIN_EMAIL' , 'andrew.schadendorff@gmail.com' ); // Used for Sending Emails to particular email addresses
+
+define( 'MYSQL_USERNAME' , 'ascms_user' );
+
+define( 'MYSQL_PASSWORD' , 'ascms_password' );
+
+define( 'MYSQL_DB' , 'ascms' );
+
+define( 'MYSQL_HOST' , '127.0.0.1' );
+
+define( 'DEBUG' , false ); // Debugging of the website
+
+require( 'database.php' ); 
+
+require( 'functions.php' );
+
+require('classes.php');

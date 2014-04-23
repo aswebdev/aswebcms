@@ -1,14 +1,21 @@
 <?php
+
 // Make MySQL Database Connection
-if(!$conn = mysql_connect(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD)){
-	// Error, no database connection
-	echo ERROR_MESSAGE;
-	exit;
+
+if( !$conn = mysql_connect( MYSQL_HOST , MYSQL_USERNAME , MYSQL_PASSWORD ) ) {
+    
+    echo ERROR_MESSAGE;
+
+    exit;
+
 } else {
-	if(!mysql_select_db(MYSQL_DB)){
-		// Error, no database table
+	
+    if( !mysql_select_db( MYSQL_DB ) ) {
+        
 		echo ERROR_MESSAGE;
-		exit;
-	}
+
+        exit;
+	
+    }
+
 }
-?>

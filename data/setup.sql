@@ -14,7 +14,7 @@ CREATE DATABASE IF NOT EXISTS `ascms`;
 CREATE USER 'ascms_user'@'127.0.0.1' IDENTIFIED BY 'ascms_password';
 
 --
--- Create the User
+-- Create the User Permissions
 --
 
 GRANT ALL PRIVILEGES ON `ascms`.* TO 'ascms_user'@'127.0.0.1';
@@ -31,6 +31,12 @@ CREATE TABLE IF NOT EXISTS `ascms`.`ADMIN-USERS` (
   `ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Insert the default user to the database
+--
+
+INSERT INTO `ascms`.`ADMIN-USERS` SET `USERNAME` = 'ascms', `PASSWORD` = '30571bd3258b84ab6903d17a3592e815', `EMAIL-ADDRESS` = 'andrew.schadendorff@gmail.com', `ACTIVE` = '1';
 
 -- --------------------------------------------------------
 
@@ -57,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `ascms`.`BANNERS` (
   `IMAGE-FILENAME` text NOT NULL,
   `ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -70,16 +76,10 @@ CREATE TABLE IF NOT EXISTS `ascms`.`CONTENT` (
   `TITLE` varchar(255) NOT NULL,
   `DESCRIPTION` text NOT NULL,
   `HTML-CONTENT` text NOT NULL,
-  `CONTENT-MODULE` varchar(60) NOT NULL,
   `SEO-URL` text NOT NULL,
-  `DATE-MODIFIED` datetime NOT NULL,
-  `MENU-ITEM` tinyint(1) NOT NULL,
-  `MENU-ORDERING` int(11) NOT NULL,
-  `MENU-BUTTON` varchar(60) NOT NULL,
-  `DISPLAY-IN-SITEMAP` tinyint(1) NOT NULL,
   `ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `ascms`.`CUSTOMERS` (
   `ACTIVE` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `EMAIL` (`EMAIL`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

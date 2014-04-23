@@ -1,26 +1,34 @@
 <?php 
 
-// Set Vars
-$userLoggedIn = false;
+$logged_in = false;
 
-require("../includes/files/define.php"); // Definition File
+require("../includes/files/define.php");
 
 // User is Logging Out. Reset Session.
-if(isset($_REQUEST['action'])) {
-	if($_REQUEST['action'] == 'logout') {
-		$_SESSION = ''; // Empty Session
-	}
+
+if( isset ( $_REQUEST['action'] ) ) {
+
+    if( $_REQUEST['action'] == 'logout' ) {
+	
+        $_SESSION = ''; // Empty Session
+	
+    }
+
 }
- 
-require(BASE_PATH_CMS."includes/files/header.php");  // CMS Header File
+
+require( BASE_PATH_CMS . "files/header.php" );
 
 ?>
 <div class="col-lg-6" style="margin:0 auto;float:none;">
 <?php
+
 // Error Message
-if(isset($_REQUEST['errorMsg'])) {
-	echo "<div class=\"alert alert-danger\" style=\"margin-top:10px;\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>".urldecode($_REQUEST['errorMsg'])."</div>";
+
+if( isset( $_REQUEST['errorMsg'] ) ) {
+
+    echo "<div class=\"alert alert-danger\" style=\"margin-top:10px;\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>" . urldecode( $_REQUEST['errorMsg'] ) . "</div>";
 }
+
 ?>
 <div class="box dark">
   <header>
@@ -58,5 +66,7 @@ if(isset($_REQUEST['errorMsg'])) {
   </div>
 </div>
 <?php
-require(BASE_PATH_CMS."includes/files/footer.php");  // CMS Footer File
+
+require( BASE_PATH_CMS . "files/footer.php");
+
 ?>
