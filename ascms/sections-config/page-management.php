@@ -22,7 +22,8 @@ $adminVariables['PAGE-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
 $adminVariables['PAGE-MANAGEMENT']['TABLE'] = 'CONTENT'; // Table to Update
 $adminVariables['PAGE-MANAGEMENT']['FUNCTIONALITY'] = array('UPDATE','ADD','DELETE'); // Functionality for Page
 $adminVariables['PAGE-MANAGEMENT']['INCLUDE-FILES'] = array(
-	array('TYPE' => 'JS', 'LOCATION' => 'packages/ckeditor/ckeditor.js', 'BASE' => 'CMS')
+	array('TYPE' => 'JS', 'LOCATION' => 'packages/ckeditor/ckeditor.js', 'BASE' => 'CMS'),
+    array('TYPE' => 'JS', 'LOCATION' => 'packages/ckfinder/ckfinder.js', 'BASE' => 'CMS')
 );
 
 ?>

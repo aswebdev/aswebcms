@@ -14,7 +14,17 @@ define( 'DEV_MODE' , false ); // will work from the /dev/ folder rather than the
 
 define( 'BASE_PATH' , dirname(dirname(dirname(__FILE__))) . '/' );
 
-define( 'BASE_PATH_CMS' , BASE_PATH.'ascms/' ); // CMS Base Path
+define( 'BASE_PATH_CMS' , BASE_PATH . 'ascms/' ); // CMS Base Path
+
+if( !isset( $_SESSION['BASE_PATH'] ) ) {
+    
+    // Used for external packages such as ckeditor & ckfinder
+ 
+    $_SESSION['BASE_PATH'] = BASE_PATH; 
+    
+    $_SESSION['BASE_PATH_CMS'] = BASE_PATH_CMS;
+    
+}
 
 if( !isset( $_SERVER['HTTPS'] ) ) { 
     
@@ -41,6 +51,14 @@ define( 'BASE_DOMAIN' , '192.168.0.3/~andrew/ASCMS/' );
 define( 'BASE_URL' , PROTOCOL . BASE_DOMAIN );
 
 define( 'BASE_URL_CMS' , PROTOCOL . BASE_DOMAIN . 'ascms/' );
+
+if( !isset( $_SESSION['BASE_URL'] ) ) {
+ 
+    $_SESSION['BASE_URL'] = BASE_URL; // Used for external packages such as ckeditor & ckfinder
+    
+    $_SESSION['BASE_URL_CMS'] = BASE_URL_CMS;
+    
+}
 
 if( DEV_MODE ) {
     

@@ -442,7 +442,8 @@ if($isValidPage) {
 						
 
 						
-						echo "CKEDITOR.replace('".$formElements['DATABASE-FIELD']."');\n";
+						echo "var editor = CKEDITOR.replace('".$formElements['DATABASE-FIELD']."' );\n";
+                        echo "CKFinder.setupCKEditor( editor ,  '" . $_SESSION['BASE_PATH_CMS'] . "packages/ckfinder/' );\n";
 						echo "</script>";
 						echo "</div>";
 					break;	
