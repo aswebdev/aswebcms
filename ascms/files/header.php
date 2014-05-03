@@ -10,6 +10,36 @@
 <link rel="stylesheet" href="<?php echo BASE_URL_CMS_ASSETS; ?>css/bootstrap.css">
 <link rel="stylesheet" href="<?php echo BASE_URL_CMS_ASSETS; ?>css/font-awesome.css">
 <link rel="stylesheet" href="<?php echo BASE_URL_CMS_ASSETS; ?>css/main.css">
+<?php
+
+if(!isset($VARS['INCLUDE-FILES'])) { $VARS['INCLUDE-FILES'] = ''; }
+
+if(is_array($VARS['INCLUDE-FILES'])) {
+	
+	foreach($VARS['INCLUDE-FILES'] as $includesArray) {
+        
+        
+        
+        if( !isset( $includesArray['BASE'] ) ) { $includesArray['BASE'] = ''; }
+		
+        if( $includesArray['BASE'] == 'CMS' ) { $baseURL = BASE_URL_CMS; } else { $baseURL = BASE_URL; }
+		
+        switch( $includesArray['TYPE'] ) {
+		
+            case 'CSS':
+            
+				echo "<link rel='stylesheet' href='" . $baseURL . $includesArray['LOCATION'] . "?" . rand(1000,5000) . "'>";
+			
+            break;
+		
+        }
+	
+    }
+
+}
+
+
+?>  
 <script src="<?php echo BASE_URL_CMS_ASSETS; ?>js/modernizr.js"></script>
 </head>
 <body>

@@ -18,7 +18,9 @@ if(!isset($VARS['INCLUDE-FILES'])) { $VARS['INCLUDE-FILES'] = ''; }
 if(is_array($VARS['INCLUDE-FILES'])) {
 	
 	foreach($VARS['INCLUDE-FILES'] as $includesArray) {
-
+        
+        
+        
         if( !isset( $includesArray['BASE'] ) ) { $includesArray['BASE'] = ''; }
 		
         if( $includesArray['BASE'] == 'CMS' ) { $baseURL = BASE_URL_CMS; } else { $baseURL = BASE_URL; }

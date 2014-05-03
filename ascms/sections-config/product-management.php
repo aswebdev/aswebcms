@@ -34,4 +34,3 @@ $adminVariables['PRODUCT-MANAGEMENT']['INCLUDE-FILES'] = array(
 $adminVariables['PRODUCT-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
 $adminVariables['PRODUCT-MANAGEMENT']['TABLE'] = 'PRODUCTS'; // Table to Update
 $adminVariables['PRODUCT-MANAGEMENT']['FUNCTIONALITY'] = array('ADD','UPDATE','DELETE'); // Functionality for Page
-$adminVariables['PRODUCT-MANAGEMENT']['INCLUDE-FILES'] = array( array('TYPE' => 'JS', 'LOCATION' => 'packages/ckeditor/ckeditor.js', 'BASE' => 'CMS') );
