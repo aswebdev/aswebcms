@@ -1,5 +1,10 @@
 $(document).ready(function(){
-
+    
+    // Check for Fancybox
+	if($('.fancybox').length != 0) {
+		$('.fancybox').fancybox();
+	}
+    
 	// Set Global Variables
 	var popupStatus = 0; // set value
 	var searchPopupStatus = 0; // set value
@@ -24,6 +29,29 @@ $(document).ready(function(){
 		document.location = pageReload;
 	});
 	
+    // Upload Area Functionality
+	$('.upload-area').on("dragover", function(e) {
+		e.preventDefault();
+		if(this.dropMsg === undefined) { this.dropMsg = $(this).children("span").html(); }
+		$(this).css('background','#000');
+		$(this).children("span").html('Drop Your File Now');
+	}).on("drop", function(e) {
+		e.preventDefault();
+		$(this).children("input[type='file']").prop("files", e.originalEvent.dataTransfer.files);
+		$(this).css('background','#fff');
+		this.dropMsg = '<i class="fa fa-check"></i>&nbsp;<strong>'+escapeHtml(e.originalEvent.dataTransfer.files[0]['name'])+'</strong> Ready or <a href="javascript:;" class="upload-cancel">Cancel</a>';
+		$(this).children("span").html(this.dropMsg);	
+	}).on("dragleave", function(e) {
+		e.preventDefault();
+		$(this).css('background','#fff');
+		$(this).children("span").html(this.dropMsg);
+	});
+	
+	$(document).on('click','.upload-cancel',function() {
+		$(this).closest("input[type='file']").prop("files", '');
+		$(this).parents('.upload-area').children("span").html('<i class=\"fa fa-folder-open\"></i>&nbsp;Drag Your File Here');
+	});
+    
 	$('.searchButton').click(function() {
 		// Bring up Search Popup
 		searchPopup();
@@ -110,7 +138,7 @@ $(document).ready(function(){
 	
 	$('.searchTerm').keyup(function() {
 		
-		var searchFile = 'includes/js/search-results.php';
+		var searchFile = 'ajax/search-results.php';
 		var searchVal = $(this).val();
 		var searchProducts = '';
 		var searchPages = '';
@@ -138,7 +166,7 @@ $(document).ready(function(){
 		var fileDetails = $(this).data('details');
 		if (removeConfirmation == true) {
 			dataString = {'fileItem':fileItem, 'fileDetails':fileDetails}; // Create the Json Data String	
-			$.getJSON('includes/js/remove-item.php',dataString, function(data) {
+			$.getJSON('ajax/remove-item.php',dataString, function(data) {
 				if(data.RETURN == 'VALID') {
 					alert('Item Removed!');
 					thisItem.hide(500);
@@ -193,3 +221,13 @@ $(document).ready(function(){
 	});
 	
 });
+
+// Functions
+function escapeHtml(text) {
+  return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+}

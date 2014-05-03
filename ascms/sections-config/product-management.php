@@ -8,7 +8,7 @@ $adminVariables['PAGE-LIST']['product-management']['ICON'] = 'headphones';
 $adminVariables['PRODUCT-MANAGEMENT']['PAGE-TITLE'] = 'Products Management';
 $adminVariables['PRODUCT-MANAGEMENT']['PAGE-FILE'] = 'product-management';
 $adminVariables['PRODUCT-MANAGEMENT']['LABELER'] = 'Product';
-$adminVariables['PRODUCT-MANAGEMENT']['DB-FIELDS'] = array('TITLE','DESCRIPTION','PRODUCT-CATEGORY','ACTIVE','KEY-FEATURES','PRODUCT-GROUP','PRICE','PRODUCT-CODE');
+$adminVariables['PRODUCT-MANAGEMENT']['DB-FIELDS'] = array('TITLE','DESCRIPTION','PRODUCT-CATEGORY','ACTIVE','KEY-FEATURES','PRODUCT-GROUP','PRICE-SPECIAL','PRICE','PRODUCT-CODE');
 $adminVariables['PRODUCT-MANAGEMENT']['DB-ORDERBY'] = " ORDER BY `TITLE` "; // Ordering
 $adminVariables['PRODUCT-MANAGEMENT']['LABEL-FIELD'] = 'TITLE';
 $adminVariables['PRODUCT-MANAGEMENT']['DISPLAY-KEY-IN-LABEL'] = false;
@@ -19,14 +19,19 @@ $adminVariables['PRODUCT-MANAGEMENT']['FORM-ELEMENTS'] = array(
 	'KEY-FEATURES' => array('TYPE' => 'textarea', 'LABEL' => 'Key Features', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'KEY-FEATURES', 'DESCRIPTION' => 'Key Features of the Product (Separate Features with a new line)'),														
 	'PRODUCT-CATEGORY' => array('TYPE' => 'select', 'LABEL' => 'Product Category', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Product Category', 'DATABASE-FIELD' => 'PRODUCT-CATEGORY', 'DESCRIPTION' => 'Category of the Product (if applicable)', 'DB-SELECT' => array('TABLE' => 'PRODUCT-CATEGORIES', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'ID')),
 	'PRODUCT-GROUP' => array('TYPE' => 'select', 'LABEL' => 'Product Group', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => 'Select a Product Group', 'DATABASE-FIELD' => 'PRODUCT-GROUP', 'DESCRIPTION' => 'Group of the Product (if applicable)', 'DB-SELECT' => array('TABLE' => 'PRODUCT-GROUPS', 'LABEL' => 'TITLE', 'IDENTIFIER' => 'ID')),
-	'DOCUMENT-UPLOAD' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'uploads/products/', 'LABEL' => 'Document Upload', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'DOCUMENT-UPLOAD', 'DESCRIPTION' => 'Document Upload', 'FILE-TYPES' => array('pdf')),
-	'IMAGE-FILENAME' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'images/products/', 'LABEL' => 'Product Image Upload', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100')),
+	'IMAGE-FILENAME' => array('TYPE' => 'upload', 'SAVE-DIRECTORY' => 'dev/img/', 'LABEL' => 'Product Image Upload', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'IMAGE-FILENAME', 'DESCRIPTION' => 'Product Image File (JPEG, PNG or GIF file)', 'FILE-TYPES' => array('png','jpg','jpeg','gif'), 'ALTERNATE-UPLOAD-SIZES' => array('100x100') , 'FILE-APPEND' => '_PRODUCT'),
 	'PRICE' => array('TYPE' => 'text', 'LABEL' => 'Price', 'DATABASE-FIELD' => 'PRICE', 'DESCRIPTION' => 'Price of the Product (if appliable)', 'PRE-PEND-FIELD' => "$"),
+    'PRICE-SPECIAL' => array('TYPE' => 'text', 'LABEL' => 'Special Price', 'DATABASE-FIELD' => 'PRICE-SPECIAL', 'DESCRIPTION' => 'Special Price of the Product (if appliable)', 'PRE-PEND-FIELD' => "$"),
 	'ACTIVE' => array('TYPE' => 'checkbox', 'LABEL' => 'Active Product', 'REQUIRED' => '', 'VALIDATION-MESSAGE' => '', 'DATABASE-FIELD' => 'ACTIVE', 'DESCRIPTION' => 'Is the Product Activate on the Site?')
 );
-	$adminVariables['PRODUCT-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
-	$adminVariables['PRODUCT-MANAGEMENT']['TABLE'] = 'PRODUCTS'; // Table to Update
-	$adminVariables['PRODUCT-MANAGEMENT']['FUNCTIONALITY'] = array('ADD','UPDATE','DELETE'); // Functionality for Page
-	$adminVariables['PRODUCT-MANAGEMENT']['INCLUDE-FILES'] = array( array('TYPE' => 'JS', 'LOCATION' => 'packages/ckeditor/ckeditor.js', 'BASE' => 'CMS') );
 
-?>
+
+$adminVariables['PRODUCT-MANAGEMENT']['INCLUDE-FILES'] = array( 
+	array('TYPE' => 'JS', 'LOCATION' => 'dist/packages/fancybox/jquery.fancybox.pack.js'),
+	array('TYPE' => 'CSS', 'LOCATION' => 'dist/packages/fancybox/jquery.fancybox.css')
+);
+
+$adminVariables['PRODUCT-MANAGEMENT']['DB-KEY'] = "ID"; // The Database Primary Key
+$adminVariables['PRODUCT-MANAGEMENT']['TABLE'] = 'PRODUCTS'; // Table to Update
+$adminVariables['PRODUCT-MANAGEMENT']['FUNCTIONALITY'] = array('ADD','UPDATE','DELETE'); // Functionality for Page
+$adminVariables['PRODUCT-MANAGEMENT']['INCLUDE-FILES'] = array( array('TYPE' => 'JS', 'LOCATION' => 'packages/ckeditor/ckeditor.js', 'BASE' => 'CMS') );

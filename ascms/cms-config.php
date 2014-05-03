@@ -14,7 +14,10 @@ if( $conn ) {
 	// Initially, page-management, product-management and banner-management are available sections
 	
     $sectionsArray = array(
-		'page-management'
+		'page-management',
+        'banner-management',
+        'product-management',
+        'product-category-management'
 	);
 	
 	// Loop the Array and include the CMS sections

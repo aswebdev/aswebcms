@@ -83,14 +83,14 @@ if($isValidPage) {
 									$handle->Process(BASE_PATH.$uploadDirectory);
 									if (!$handle->processed) {
 										$alertType = 'error';
-										$updatedMsg .= "The file ($filename) has <span style=\"color:red;\">NOT</span> been uploaded! Please contact Xceed for a resolution. (".BASE_PATH.$uploadDirectory.$filename.")<br />";
+										$updatedMsg .= "The file ($filename) has <span style=\"color:red;\">NOT</span> been uploaded! Please contact Technical Support for a resolution. (".BASE_PATH.$uploadDirectory.$filename.")<br />";
 									} else {
 										$alertType = 'success';
 										$updatedMsg .= "The file ($filename) has been successfully resized and uploaded!<br />";	
 									}
 								} else {
 									$alertType = 'error';
-									$updatedMsg .= "The file upload package is unavailable. Please contact Xceed for a resolution.";
+									$updatedMsg .= "The file upload package is unavailable. Please contact Technical Support for a resolution.";
 								}
 							} else {
 								// Use the Standard Upload	
@@ -103,7 +103,7 @@ if($isValidPage) {
 									}
 								} else {
 									$alertType = 'error';
-									$updatedMsg .= "The file ($filename) has <span style=\"color:red;\">NOT</span> been uploaded! Please contact Xceed for a resolution. (".BASE_PATH.$uploadDirectory.$filename.")<br />";
+									$updatedMsg .= "The file ($filename) has <span style=\"color:red;\">NOT</span> been uploaded! Please contact Technical Support for a resolution. (".BASE_PATH.$uploadDirectory.$filename.")<br />";
 								}
 							}
             			}
@@ -131,7 +131,7 @@ if($isValidPage) {
 						
 		} else {
 			$alertType = 'error';
-			$updatedMsg .= "Error has occured when updating your ".$VARS['LABELER'].". Please contact Xceed for a resolution. (TABLE:".$VARS['TABLE'].", KEY: ".$VARS['DB-KEY'].")";	
+			$updatedMsg .= "Error has occured when updating your ".$VARS['LABELER'].". Please contact Technical Support for a resolution. (TABLE:".$VARS['TABLE'].", KEY: ".$VARS['DB-KEY'].")";	
 		}
 	}
 
@@ -219,7 +219,7 @@ if($isValidPage) {
 	
 	echo " ".$VARS['LABELER'];
 	echo "</label>";
-	echo "<div class=\"col-lg-4\"><select class=\"pageReload form-control\" name=\"page-reload\">\n";
+	echo "<div class=\"col-lg-8\"><select class=\"pageReload form-control\" name=\"page-reload\">\n";
 	
 	if(in_array('ADD',$VARS['FUNCTIONALITY'])) {
 		echo "<option value=\"".BASE_URL_CMS."module.php?module=".$VARS['PAGE-FILE']."\" selected=\"selected\">Add New ".$VARS['LABELER']."...</option>\n";
@@ -300,7 +300,7 @@ if($isValidPage) {
 
 				// Reset the Index
 				if(!isset($r[$formElements['DATABASE-FIELD']])) { $r[$formElements['DATABASE-FIELD']] = ''; }
-				
+                
 				switch($formElements['TYPE']) {
 					case 'text':
 						echo "<div class=\"form-group\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
@@ -443,7 +443,7 @@ if($isValidPage) {
 
 						
 						echo "var editor = CKEDITOR.replace('".$formElements['DATABASE-FIELD']."' );\n";
-                        echo "CKFinder.setupCKEditor( editor ,  '" . $_SESSION['BASE_PATH_CMS'] . "packages/ckfinder/' );\n";
+                        echo "CKFinder.setupCKEditor( editor ,  '" . $_SESSION['BASE_URL_CMS'] . "packages/ckfinder/' );\n";
 						echo "</script>";
 						echo "</div>";
 					break;	
@@ -462,12 +462,29 @@ if($isValidPage) {
 						
 						echo "<label for=\"".$formElements['DATABASE-FIELD']."\" class=\"control-label col-lg-4\">".$formElements['LABEL']."</label>";
 						echo "<div class=\"col-lg-4\">";
-						echo "<input type=\"file\" name=\"".$formElements['DATABASE-FIELD']."\" class=\"uploadImg\" data-label=\"".$formElements['LABEL']."\" $filetypeAttributes $styleAttributes />\n";
+						
+						echo "<div class=\"upload-area\"><span><i class=\"fa fa-folder-open\"></i>&nbsp;Drag Your File Here</span><input type=\"file\" name=\"".$formElements['DATABASE-FIELD']."\" class=\"uploadImg\" data-label=\"".$formElements['LABEL']."\" $filetypeAttributes></div>";
+
 						// Check if the current file exists
 						$currentFile = BASE_PATH.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']];
 						if(is_file($currentFile)) {
-							echo "<a href=\"".BASE_URL.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']]."\" target=\"_blank\">View Current File</a>\n";
-							echo "&nbsp;&nbsp;<a href=\"javascript:;\" data-remove=\"".BASE_URL.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']]."\" data-details=\"".$VARS['TABLE']."|".$formElements['DATABASE-FIELD']."|".$r[$VARS['DB-KEY']]."|".$VARS['DB-KEY']."\" class=\"removeItem\">Remove File</a>\n";
+							
+							// Check if image, if so do fancybox
+							$currentFileExt = strtolower(pathinfo($currentFile, PATHINFO_EXTENSION));
+							$fileTypes = array('png','jpg','jpeg','gif');
+							$imageClass = '';
+							$fileTarget = '';
+							if(in_array($currentFileExt,$fileTypes)) { 
+								$imageClass = 'fancybox';
+							} else {
+								$fileTarget = "target=\"_blank\"";
+							}
+							
+							
+							echo "<div class=\"upload-current\">";
+							echo "<a href=\"".BASE_URL.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']]."\" class=\"btn btn-primary btn-xs ".$imageClass."\" $fileTarget>View Current File</a>\n";
+							echo "&nbsp;&nbsp;<a href=\"javascript:;\" data-remove=\"".BASE_URL.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']]."\" data-details=\"".$VARS['TABLE']."|".$formElements['DATABASE-FIELD']."|".$r[$VARS['DB-KEY']]."|".$VARS['DB-KEY']."\" class=\"removeItem btn btn-primary btn-xs\">Remove Current File</a>\n";
+							echo "</div>";
 						}
 						echo "</div>\n";
 						echo "</div>\n";

@@ -114,10 +114,10 @@ body.padTop53 {
 }
 @media (min-width: 992px) {
   #left {
-    width: 220px;
+    width: 260px;
   }
   #left #menu.affix {
-    width: 220px;
+    width: 260px;
   }
   .mini-sidebar #left {
     width: 100px;
@@ -291,9 +291,6 @@ body.padTop53 {
   .search-bar .input-small.form-control {
     border-radius: 3px;
   }
-  .main-bar {
-    margin-left: 100px;
-  }
   .side-right .main-bar {
     margin-left: 0;
     margin-right: 100px;
@@ -319,9 +316,6 @@ body.padTop53 {
   }
   .mini-sidebar .search-bar .input-small.form-control {
     border-radius: 3px;
-  }
-  .main-bar {
-    margin-left: 220px;
   }
   .side-right .main-bar {
     margin-right: 220px;
@@ -521,20 +515,6 @@ body.padTop53 {
   .mini-sidebar.side-right #menu > li > a .label,
   .side-right #menu > li > a .label {
     right: auto;
-  }
-  #menu:after,
-  .mini-sidebar #menu:after {
-    display: block;
-    -webkit-box-shadow: 97px 1px 5px 2px rgba(0, 0, 0, 0.6);
-    box-shadow: 97px 1px 5px 2px rgba(0, 0, 0, 0.6);
-    content: " ";
-    position: absolute;
-    left: 0px;
-    top: 0;
-    width: 0;
-    bottom: 0;
-    right: 0;
-    background: #333;
   }
   .side-right #menu:after,
   .side-right.mini-sidebar #menu:after {
@@ -2680,3 +2660,35 @@ body.error .logo h1 {
   border-radius: 0;
 }
 /* END LOGIN PAGE STYLES */
+
+/* BEGIN UPLOAD STYLES */
+
+.upload-area { 
+	border:dashed 1px #BABABA;
+	text-align:center;
+}
+
+.upload-area span {
+	padding:10px;
+	width:100%;
+	display:inline-block;	
+	color:#BABABA;
+}
+
+.upload-area input[type="file"] {
+	position:absolute;
+	left: -5000px;
+}
+
+.upload-current {
+	margin-top:10px;	
+}
+
+.line-holder {
+	width:100%;
+	height:1px;
+	border:solid 1px #F0F0F0;
+	margin:25px 0 30px 0;	
+}
+
+/* END UPLOAD STYLES */

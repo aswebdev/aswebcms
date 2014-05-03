@@ -1,7 +1,7 @@
 <?php
 
 header('Content-type: application/json');
-require('../../../includes/files/define.php'); // Definition File
+require('../../includes/files/define.php'); // Definition File
 
 // Get Search Results from Request
 $fileItem = '';
@@ -40,35 +40,8 @@ if($conn) {
 			}
 		}
 		
-		/*
-		if(defined(IMAGE_BOX_SIZE)) {
-			$imageArray = explode('.',$imageBaseFile);
-			$imageFile = $imageArray[0].'-'.IMAGE_BOX_SIZE.'.'.strtolower($imageArray[1]);	
-			if(is_file($fullPath.$imageFile)) {
-				unlink($fullPath.$imageFile);
-			}
-		}
-		
-		if(defined(IMAGE_DETAIL_SIZE)) {
-			$imageArray = explode('.',$imageBaseFile);
-			$imageFile = $imageArray[0].'-'.IMAGE_DETAIL_SIZE.'.'.strtolower($imageArray[1]);		
-			if(is_file($fullPath.$imageFile)) {
-				unlink($fullPath.$imageFile);
-			}
-		}
-		
-		if(defined(IMAGE_LIGHTBOX_SIZE)) {
-			$imageArray = explode('.',$imageBaseFile);
-			$imageFile = $imageArray[0].'-'.IMAGE_LIGHTBOX_SIZE.'.'.strtolower($imageArray[1]);						
-			if(is_file($fullPath.$imageFile)) {
-				unlink($fullPath.$imageFile);
-			}	
-		}
-		*/
-		
-		
 		// Do Query
-		$sql = "UPDATE `{$table}` SET `{$row}` = '' WHERE `{$key}` = '".mysql_real_escape_string($identifier)."' ";
+		$sql = "UPDATE `{$table}` SET `{$row}` = '' WHERE `{$key}` = '" . mysql_real_escape_string( $identifier ) . "' ";
 		if(mysql_query($sql)) {
 			
 		}

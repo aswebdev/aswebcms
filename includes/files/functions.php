@@ -160,7 +160,7 @@ function updateDatabaseEntry($table="",$keys=array(),$entryType="", $primaryKey=
 	}
 	
 	$sql = $sql.$sqlRow; // Do Join
-	
+    
 	if($conn) { // Make Sure we have a database connection
 		if($res = mysql_query($sql,$conn)) {
 			if($entryType == 'INSERT') {

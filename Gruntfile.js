@@ -24,14 +24,22 @@ module.exports = function(grunt) {
         }
       },
       imagemin: {
-    	dynamic: {
-      	files: [{
+    	cms : {
+      	 files: [{
         	expand: true, 
-        	cwd: 'ascms/dev/img', 
+        	cwd: 'ascms/dev/img/', 
         	src: ['**//*.{png,jpg,gif}'],
-        	dest: 'ascms/dist/img'
-      	}]
-		}
+        	dest: 'ascms/dist/img/'
+      	 }]
+		},
+        front : {
+      	 files: [{
+        	expand: true, 
+        	cwd: 'dev/img/', 
+        	src: ['**//*.{png,jpg,gif}'],
+        	dest: 'dist/img/'
+      	 }]
+		} 
 	  }
     /*
     ,
@@ -58,10 +66,10 @@ module.exports = function(grunt) {
 	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	//grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	
  	// Default task(s).
 	//grunt.registerTask('default', ['uglify','cssmin','imagemin']);
-	grunt.registerTask('default', ['uglify','cssmin']);
+	grunt.registerTask('default', ['uglify','cssmin','imagemin']);
     
 };
