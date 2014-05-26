@@ -52,5 +52,3 @@ if($conn) {
 $json = json_encode($arr);
 echo $json;
 exit;
-
-?>

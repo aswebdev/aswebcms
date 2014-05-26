@@ -26,11 +26,16 @@ if($isValidPage) {
 		}
 		
 		if($id = updateDatabaseEntry($VARS['TABLE'],$VARS['DB-FIELDS'],$updateType, $VARS['DB-KEY'])) {
-			$updatedMsg .= $VARS['LABELER']." update has been successful!<br />\n";
-			// Check for Uploaded Files
-			if(!isset($_POST['UPLOAD'])) { $_POST['UPLOAD'] = ''; }
-			if(is_array($_POST['UPLOAD'])) {
-				foreach($_POST['UPLOAD'] as $uploadFile => $uploadConents) {
+			
+            $updatedMsg .= $VARS['LABELER']." update has been successful!<br />\n";
+			
+            // Check for Uploaded Files
+			
+            if(!isset($_POST['UPLOAD'])) { $_POST['UPLOAD'] = ''; }
+			
+            if(is_array($_POST['UPLOAD'])) {
+                
+                foreach($_POST['UPLOAD'] as $uploadFile => $uploadConents) {
 					$imageDimensionsArray = '';
 					$imageMaxWidth = '';
 					$imageMaxHeight = '';
@@ -205,7 +210,7 @@ if($isValidPage) {
 		}
 	}
 
-	echo "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" class=\"form-horizontal adminForm\" >\n";
+	echo "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" class=\"form-horizontal admin-form\" >\n";
 	
 	echo "<div class=\"popup-msg\"></div>";
 	
@@ -256,8 +261,6 @@ if($isValidPage) {
 	
 	if($hideElements != true) {
 	
-
-		
 		if(!empty($r[$VARS['DB-KEY']])) {
 			echo "<input type=\"hidden\" name=\"".$VARS['DB-KEY']."\" value=\"".$r[$VARS['DB-KEY']]."\" />\n";
 		}
@@ -447,7 +450,50 @@ if($isValidPage) {
 						echo "</script>";
 						echo "</div>";
 					break;	
+                    
 					case 'upload':
+                    
+                        echo "<div class=\"form-group\" $hiddenRow id=\"" . $elementName . "-HOLDER\">\n";
+                        
+                        if( !isset( $formElements['FILE-APPEND'] ) ) { $formElements['FILE-APPEND'] = ''; }
+                        /*
+                        echo "<input type=\"hidden\" name=\"UPLOAD[]\" value=\"".$formElements['SAVE-DIRECTORY']."|".$formElements['DATABASE-FIELD']."|".$formElements['FILE-APPEND']."\" />\n";    
+                        
+                        
+                    
+                        // Check if has an alternate upload 
+                        
+						if(!isset($formElements['ALTERNATE-UPLOAD-SIZES'])) { $formElements['ALTERNATE-UPLOAD-SIZES'] = ''; }
+						
+                        if(is_array($formElements['ALTERNATE-UPLOAD-SIZES'])) {
+						
+                            foreach($formElements['ALTERNATE-UPLOAD-SIZES'] as $alternateUploads) {
+							
+                                echo "<input type=\"hidden\" name=\"UPLOAD[]\" value=\"".$formElements['SAVE-DIRECTORY']."|".$formElements['DATABASE-FIELD']."|".$formElements['FILE-APPEND']."|".$alternateUploads."\" />\n";
+							 
+                            }
+						
+                        }
+                        */
+                        
+                        echo "<label for=\"" . $formElements['DATABASE-FIELD'] . "\" class=\"control-label col-lg-4\">" . $formElements['LABEL'] . "</label>";
+                        
+                        echo "<div class=\"col-lg-8\">";
+						
+						echo "<div class=\"upload-area\">";
+                    
+                        echo "<span><i class=\"fa fa-upload\"></i>&nbsp;Drag File Here or Click to Upload</span>";
+                    
+                        echo "<input type=\"hidden\" name=\"file-string\" class=\"file-string\" value=\"" . md5( time() ) . "\">"; // Create a Random number here to refer back to 
+                    
+                        echo "</div>";
+                    
+                        echo "</div>\n"; 
+                    
+                        echo "</div>\n";
+                        
+                        
+                        /*
 						echo "<div class=\"form-group\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
 						if(!isset($formElements['FILE-APPEND'])) { $formElements['FILE-APPEND'] = ''; }
 						echo "<input type=\"hidden\" name=\"UPLOAD[]\" value=\"".$formElements['SAVE-DIRECTORY']."|".$formElements['DATABASE-FIELD']."|".$formElements['FILE-APPEND']."\" />\n";
@@ -488,6 +534,7 @@ if($isValidPage) {
 						}
 						echo "</div>\n";
 						echo "</div>\n";
+                        */
 					break;
 					case 'separator':
 						echo "<div class=\"lineHolder\"></div>\n";

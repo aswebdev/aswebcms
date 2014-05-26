@@ -1,9 +1,12 @@
 $(document).ready(function(){
     
     // Check for Fancybox
-	if($('.fancybox').length != 0) {
-		$('.fancybox').fancybox();
-	}
+    
+	if( $( '.fancybox' ).length > 0 ) {
+        
+		$( '.fancybox' ).fancybox();
+	
+    }
     
 	// Set Global Variables
 	var popupStatus = 0; // set value
@@ -28,29 +31,97 @@ $(document).ready(function(){
 		pageReload = $(this).val();
 		document.location = pageReload;
 	});
-	
+    
+    var upload_default = '';
+    
+    var upload_filled = false;
+    
     // Upload Area Functionality
-	$('.upload-area').on("dragover", function(e) {
+    
+	$( '.upload-area' ).on( "dragover" , function( e ) {
+    
 		e.preventDefault();
-		if(this.dropMsg === undefined) { this.dropMsg = $(this).children("span").html(); }
-		$(this).css('background','#000');
-		$(this).children("span").html('Drop Your File Now');
-	}).on("drop", function(e) {
+        
+        if ( upload_default == '' ) {
+            
+            upload_default = $( this ).html();
+            
+        }
+		
+        $( this ).children("span").html('<strong class="drop-file"><i class=\"fa fa-check\"></i>&nbsp;&nbsp;Drop Now!</strong>');
+    
+    }).on( "drop" , function( e ) {
+		
+        e.preventDefault();
+          
+        var m = $( this ).children( "span" );
+        
+        var d = $( this );
+        
+        var fn = $( this ).children( "file-string" ).val() + '.' + get_extension( e.originalEvent.dataTransfer.files[0] );
+        
+        setUpload( m , d, e.originalEvent.dataTransfer.files[0] , fn );
+	   
+        $( this ).children( "span" ).html( this.dropMsg );	
+        
+    }).on("dragleave", function(e) {
+        
 		e.preventDefault();
-		$(this).children("input[type='file']").prop("files", e.originalEvent.dataTransfer.files);
-		$(this).css('background','#fff');
-		this.dropMsg = '<i class="fa fa-check"></i>&nbsp;<strong>'+escapeHtml(e.originalEvent.dataTransfer.files[0]['name'])+'</strong> Ready or <a href="javascript:;" class="upload-cancel">Cancel</a>';
-		$(this).children("span").html(this.dropMsg);	
-	}).on("dragleave", function(e) {
-		e.preventDefault();
-		$(this).css('background','#fff');
-		$(this).children("span").html(this.dropMsg);
-	});
+		
+        $( this ).css('background','#fff');
+        
+        $( this ).html( upload_default );
 	
-	$(document).on('click','.upload-cancel',function() {
-		$(this).closest("input[type='file']").prop("files", '');
-		$(this).parents('.upload-area').children("span").html('<i class=\"fa fa-folder-open\"></i>&nbsp;Drag Your File Here');
-	});
+    });
+	
+    $( document ).on( 'click' , '.upload-area-filled a' , function( ) {
+       
+        // Reset the Upload Tool
+        
+        $( this ).parents( '.upload-area' ).html( upload_default );
+        
+        upload_filled = false;
+        
+    });
+
+    
+    $( '.upload-area' ).on( "click" , function( ) {
+       
+        var m = $( this ).children( "span" );
+        
+        var d = $( this );
+        
+        var fn = $( this ).children( '.file-string' ).val();
+        
+        if( upload_filled == false ) { // Upload Only if has not been previously filled
+            
+            var input = document.createElement( 'input' );
+        
+            input.type = 'file';
+        
+            input.name = 'file-upload';
+            
+            input.setAttribute( 'class' , 'upload-hidden' );
+            
+            input.id = 'file-upload';
+            
+            document.getElementsByClassName('admin-form')[0].appendChild( input );
+            
+            input.addEventListener( 'change' , function inputevent( e ) {
+                
+                var ext = get_extension( e.target.files[0].type );
+                
+                fn =  fn + '.' + ext;
+                
+                setUpload( m , d , e.target.files[0] , fn );
+                
+            });
+        
+            input.click();          
+            
+        }
+        
+    });
     
 	$('.searchButton').click(function() {
 		// Bring up Search Popup
@@ -96,7 +167,7 @@ $(document).ready(function(){
 				var filesSupportedLabel = '';
 				
 				// Check if has a file extension match
-				jQuery.each(filesArray, function() {
+				$.each(filesArray, function() {
 					filesSupportedLabel += this+', ';
 					if(this.indexOf(fileExtension) !== -1) {
 						hasFileMatch = true;
@@ -127,8 +198,6 @@ $(document).ready(function(){
 		} else {
 		    // Do nothing!
 		}
-		
-
 	});
 	
 	$("#searchPages").change(function() { $('.searchTerm').trigger('keyup'); });
@@ -220,14 +289,116 @@ $(document).ready(function(){
 		disablePopup();  // function close pop up
 	});
 	
+    // Functions
+    function escapeHtml(text) {
+        return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }   
+
+    // Sets the Image Upload into the thumbnail display
+
+    function setUpload( m , d , f , fn ) {
+
+        // Check if the file is an image
+
+        if ( !f.name.match(/\.(jpg|jpeg|png|gif)$/) ) {
+
+            m.html( '<strong>Error:</strong> Use jpeg, png or gif format!' );
+
+            setTimeout( function dragerror() {
+
+                d.trigger( 'dragleave' );   
+
+            } , 2000 );
+
+            return false;
+
+        }
+
+        d.css('background','#fff');
+
+        var reader = new FileReader();
+
+        reader.readAsDataURL( f );
+
+        // Closure to capture the file information.
+
+        reader.onprogress = ( function( f ) {
+
+            m.html( '<img src="dist/img/loader.gif">' );
+
+        });
+
+        reader.onload = ( function( f ) {
+
+            m.html('');
+
+            d.append( '<div class="uploaded-img"><img src="' + f.target.result + '" style="max-height:148px;max-width:148px;" ><div class="upload-area-filled"><a href="javascript:;" title="remove">x</a></div></div>' );
+
+            // Lets save the image temporarily to the server for future use
+            
+            var send_data = 'data=' + f.target.result + '&filename=' + fn;
+            
+            ajax_request( 'ajax/save-file.php' , send_data , false );
+            
+            upload_filled = true;
+
+        } );
+
+    }
+    
+    // ajax_request ( [ file ] , [ data ] , [ callback function ] )
+    
+    function ajax_request( f , d , callbk ) {
+        
+        var my_request = new XMLHttpRequest();
+        
+        my_request.onreadystatechange = function( ) {
+            
+            if( my_request.readyState == 4 && my_request.status == 200 ) {
+                
+                // Call the successful callback
+                
+                if( callbk !== false ) {
+                
+                    callbk( );
+                    
+                }
+                
+            }
+               
+        }
+        
+        my_request.open( 'POST' , f , true ); 
+        
+        my_request.setRequestHeader( "Content-Type" , "application/x-www-form-urlencoded" );
+        
+        my_request.send( d );
+        
+    }
+    
+    function get_extension( mime ) {
+        
+        var mime_to_ext = { 'image/jpeg':'jpg' , 'image/png':'png' };
+        
+        if( mime_to_ext[ mime ] ) {
+            
+            return mime_to_ext[ mime ];
+            
+        }
+        
+        return false;
+        
+    }
+    
 });
 
-// Functions
-function escapeHtml(text) {
-  return text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-}
+
+
+
+
+
