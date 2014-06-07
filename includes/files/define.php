@@ -102,4 +102,4 @@ require( 'database.php' );
 
 require( 'functions.php' );
 
-require('classes.php');
+require( 'classes.php' );
