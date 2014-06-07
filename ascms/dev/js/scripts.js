@@ -58,9 +58,9 @@ $(document).ready(function(){
         
         var d = $( this );
         
-        var fn = $( this ).children( "file-string" ).val() + '.' + get_extension( e.originalEvent.dataTransfer.files[0] );
+        var fn = random_string( 32 ) + '.' + get_extension( e.originalEvent.dataTransfer.files[0].type );
         
-        setUpload( m , d, e.originalEvent.dataTransfer.files[0] , fn );
+        set_upload( m , d, e.originalEvent.dataTransfer.files[0] , fn );
 	   
         $( this ).children( "span" ).html( this.dropMsg );	
         
@@ -78,7 +78,17 @@ $(document).ready(function(){
        
         // Reset the Upload Tool
         
-        $( this ).parents( '.upload-area' ).html( upload_default );
+        var upload_area = $( this ).parents( '.upload-area' );
+        
+        var hidden_input = upload_area.data( 'field' );
+        
+        upload_area.html( upload_default );
+        
+        // Remove the hidden vars
+        
+        hidden_input = document.getElementsByName( hidden_input )[0];
+        
+        hidden_input.parentNode.removeChild( hidden_input );
         
         upload_filled = false;
         
@@ -91,7 +101,13 @@ $(document).ready(function(){
         
         var d = $( this );
         
-        var fn = $( this ).children( '.file-string' ).val();
+        var fn = random_string( 32 );
+        
+        if ( upload_default == '' ) {
+            
+            upload_default = $( this ).html();
+            
+        }
         
         if( upload_filled == false ) { // Upload Only if has not been previously filled
             
@@ -113,7 +129,7 @@ $(document).ready(function(){
                 
                 fn =  fn + '.' + ext;
                 
-                setUpload( m , d , e.target.files[0] , fn );
+                set_upload( m , d , e.target.files[0] , fn );
                 
             });
         
@@ -186,7 +202,7 @@ $(document).ready(function(){
 		if(msg != '') {
 			msg = '<strong>Please fix the following errors!</strong><br />'+msg;
 		}
-		
+        
 		checkPopUp(msg);		
 	});
 
@@ -194,7 +210,7 @@ $(document).ready(function(){
 	$('.deleteButton').click(function() {
 		if (confirm('Are you sure you want to Delete?')) {
 			$('<input>').attr({ type: 'hidden', name: 'deleteEntry', value:'true' }).appendTo('form');
-			$('.adminForm').submit(); // Safe to submit form	
+			$('.admin-form').submit(); // Safe to submit form	
 		} else {
 		    // Do nothing!
 		}
@@ -247,12 +263,14 @@ $(document).ready(function(){
 	});
 	
 	// Check if Popup Needs to loadup
-	function checkPopUp(msg) {
-		if(msg != '') {
+	
+    function checkPopUp( msg ) {
+        
+        if(msg != '') {
 			$(".popup-msg").html("<div class=\"alert alert-danger\" style=\"margin-top:10px;\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+msg+"</div>");
 			setTimeout(function(){ loadPopup(); }, 500); // .5 second
 		} else {
-			$('.adminForm').submit(); // Safe to submit form	
+			$('.admin-form').submit(); // Safe to submit form	
 		}
 	}
 	
@@ -301,8 +319,8 @@ $(document).ready(function(){
 
     // Sets the Image Upload into the thumbnail display
 
-    function setUpload( m , d , f , fn ) {
-
+    function set_upload( m , d , f , fn ) {
+        
         // Check if the file is an image
 
         if ( !f.name.match(/\.(jpg|jpeg|png|gif)$/) ) {
@@ -343,7 +361,31 @@ $(document).ready(function(){
             
             var send_data = 'data=' + f.target.result + '&filename=' + fn;
             
-            ajax_request( 'ajax/save-file.php' , send_data , false );
+            var form_data = new FormData();
+            
+            form_data.append( "data" , f.target.result );
+            
+            form_data.append( "filename" , fn );
+            
+            ajax_request( 'ajax/save-file.php' , form_data , function saved_upload() {
+             
+                // create a hidden form element for save reference during POST
+                
+                var field = d.data( 'field' );
+                
+                var submit_form = document.getElementsByClassName( 'admin-form' )[0];
+                
+                var form_ele = document.createElement('input');
+                
+                form_ele.setAttribute( 'type' , 'hidden' );
+                
+                form_ele.setAttribute( 'name' , field );
+                
+                form_ele.setAttribute( 'value' , fn );
+                
+                submit_form.appendChild( form_ele );
+                
+            });
             
             upload_filled = true;
 
@@ -357,25 +399,17 @@ $(document).ready(function(){
         
         var my_request = new XMLHttpRequest();
         
-        my_request.onreadystatechange = function( ) {
+        my_request.onload = function ajaxload( r ) {
             
-            if( my_request.readyState == 4 && my_request.status == 200 ) {
+            if( callbk !== false ) {
                 
-                // Call the successful callback
-                
-                if( callbk !== false ) {
-                
-                    callbk( );
+                    callbk( r );
                     
-                }
-                
             }
-               
+            
         }
         
-        my_request.open( 'POST' , f , true ); 
-        
-        my_request.setRequestHeader( "Content-Type" , "application/x-www-form-urlencoded" );
+        my_request.open( 'POST' , f , true );  
         
         my_request.send( d );
         
@@ -383,7 +417,7 @@ $(document).ready(function(){
     
     function get_extension( mime ) {
         
-        var mime_to_ext = { 'image/jpeg':'jpg' , 'image/png':'png' };
+        var mime_to_ext = { 'image/jpeg':'jpeg' , 'image/png':'png' };
         
         if( mime_to_ext[ mime ] ) {
             
@@ -395,10 +429,16 @@ $(document).ready(function(){
         
     }
     
+    function random_string( length ) {
+        
+        var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+        var result = '';
+    
+        for ( var i = length ; i > 0 ; --i ) result += chars[ Math.round( Math.random() * ( chars.length - 1 ) ) ];
+    
+        return result;
+
+    }
+    
 });
-
-
-
-
-
-

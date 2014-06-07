@@ -25,96 +25,113 @@ if($isValidPage) {
 			$updateType = "DELETE"; // Insert
 		}
 		
-		if($id = updateDatabaseEntry($VARS['TABLE'],$VARS['DB-FIELDS'],$updateType, $VARS['DB-KEY'])) {
+		if( $id = updateDatabaseEntry( $VARS['TABLE'] , $VARS['DB-FIELDS'] , $updateType , $VARS['DB-KEY'] ) ) {
 			
             $updatedMsg .= $VARS['LABELER']." update has been successful!<br />\n";
 			
-            // Check for Uploaded Files
-			
-            if(!isset($_POST['UPLOAD'])) { $_POST['UPLOAD'] = ''; }
-			
-            if(is_array($_POST['UPLOAD'])) {
+            // Loop the form element for an upload
+            
+            foreach( $VARS['FORM-ELEMENTS'] as $k => $v ) {
                 
-                foreach($_POST['UPLOAD'] as $uploadFile => $uploadConents) {
-					$imageDimensionsArray = '';
-					$imageMaxWidth = '';
-					$imageMaxHeight = '';
-					$uploadContentsArray = '';
-					
-					// Separate the Directory and the Upload Name from the Hidden POST
-					$uploadContentsArray = explode('|',$uploadConents);
-					$uploadDirectory = $uploadContentsArray[0];
-					$uploadName = $uploadContentsArray[1];
-					$uploadAppend = $uploadContentsArray[2];
-					
-					// Check if has an Image Size Array
-					if(!empty($uploadContentsArray[3])) {
-						$imageDimensionsArray = explode('x',$uploadContentsArray[3]);
-						$imageMaxWidth = $imageDimensionsArray[0];
-						$imageMaxHeight = $imageDimensionsArray[1];
-					}
-					
-					// Check if a file has been uploaded
-					if(isset($_FILES[$uploadName]['tmp_name'])) {
-						
-						if(is_uploaded_file($_FILES[$uploadName]['tmp_name'])) {		
-							
-							// Setup the Filename
-							$filenameSafe = seoUrl($id).$uploadAppend;
-							$name = $_FILES[$uploadName]["name"];
-							$dot = ".";
-							$ext = explode($dot, $name);
-							$filename = $filenameSafe.".".$ext[(count($ext) -1)];								
+                if( $v['TYPE'] == 'upload' ) {
+                    
+                    require_once( BASE_PATH . 'includes/packages/upload.class/upload.class.php' ); // Include the Upload Class
+                    
+                    // Is an Upload. Check if we have uploaded anything 
+                    
+                    if( !empty( $_POST[$k] ) ) {
+                        
+                        $temp_file = BASE_PATH . $v['SAVE-DIRECTORY'] . $_POST[$k];
+                        
+                        $ext = pathinfo( $_POST[$k] , PATHINFO_EXTENSION );
+                        
+                        $saved_file_name = $id . $v['FILE-APPEND'] . '.' . $ext;
+                        
+                        $saved_file = BASE_PATH . $v['SAVE-DIRECTORY'] . $saved_file_name;
+                        
+                        if( is_file( $temp_file ) ) {
+                            
+                            // We have a file, lets save it to a proper id first
+                            
+                            if( @copy( $temp_file , $saved_file ) ) {
+                                
+                                // Save it to the database
+                                
+                                $sql = "UPDATE `" . $VARS['TABLE'] . "` SET `" . $k . "` = '" . mysql_real_escape_string( $saved_file_name ) . "' ";
+                                
+                                mysql_query( $sql , $conn );
+                                
+                                // Copy a success, we can remove the temp file now
+                                
+                                unlink( $temp_file );
+                                
+                                if( is_array( $v['ALTERNATE-UPLOAD-SIZES'] ) ) {
+                                    
+                                    foreach( $v['ALTERNATE-UPLOAD-SIZES'] as $a ) {
+                                        
+                                        $alt_file_path = BASE_PATH . $v['SAVE-DIRECTORY'];
+                                        
+                                        $alt_file_safe = $id . $v['FILE-APPEND'] . '-' . $a;
+                                        
+                                        $alt_file_name = $alt_file_safe . '.' . $ext;
+                                        
+                                        $alt_file = $alt_file_path . $alt_file_name;
+                                        
+                                        $dimensions_arr = explode( 'x' , $a );
 
-							
-							// If imageMaxWidth is set, its an image and we need to use UploadClass to resize it!
-							if(!empty($imageMaxWidth)) {
-								$filenameSafe = $filenameSafe."-".$imageMaxWidth."x".$imageMaxHeight;
-								$filename = $filenameSafe.".".$ext[(count($ext) -1)];
-								// Include the Upload CLass
-								if(is_file(BASE_PATH.'includes/packages/upload.class/upload.class.php')) {
-									require_once(BASE_PATH.'includes/packages/upload.class/upload.class.php');							
-									// Set the Parameters for Upload Class
-									$handle = new upload($_FILES[$uploadName]);							
-									$handle->file_auto_rename = false;
-									$handle->file_overwrite = true;
-									$handle->file_safe_name = false;
-									$handle->image_resize = true;
-									$handle->image_ratio_no_zoom_in = true;
-									$handle->file_new_name_body = $filenameSafe;
-									$handle->image_ratio = true;
-									$handle->image_x = $imageMaxWidth;
-									$handle->image_y = $imageMaxHeight;
-									$handle->Process(BASE_PATH.$uploadDirectory);
-									if (!$handle->processed) {
-										$alertType = 'error';
-										$updatedMsg .= "The file ($filename) has <span style=\"color:red;\">NOT</span> been uploaded! Please contact Technical Support for a resolution. (".BASE_PATH.$uploadDirectory.$filename.")<br />";
-									} else {
-										$alertType = 'success';
-										$updatedMsg .= "The file ($filename) has been successfully resized and uploaded!<br />";	
-									}
-								} else {
-									$alertType = 'error';
-									$updatedMsg .= "The file upload package is unavailable. Please contact Technical Support for a resolution.";
-								}
-							} else {
-								// Use the Standard Upload	
-								if(@copy($_FILES[$uploadName]['tmp_name'], BASE_PATH.$uploadDirectory.$filename)) {
-									// Save the Filename into the Database for safe keeping :)
-									$sql = "UPDATE `".$VARS['TABLE']."` SET  `$uploadName` = '".$filename."' WHERE `".$VARS['DB-KEY']."` = '".mysql_real_escape_string($id)."' ";
-									if(mysql_query($sql,$conn)) {
-										$alertType = 'success';
-										$updatedMsg .= "The file ($filename) has been successfully uploaded!<br />";	
-									}
-								} else {
-									$alertType = 'error';
-									$updatedMsg .= "The file ($filename) has <span style=\"color:red;\">NOT</span> been uploaded! Please contact Technical Support for a resolution. (".BASE_PATH.$uploadDirectory.$filename.")<br />";
-								}
-							}
-            			}
-					}
-				}
-			}
+                                        $handle = new upload( $saved_file );							
+									   
+                                        $handle->file_auto_rename = false;
+									   
+                                        $handle->file_overwrite = true;
+									   
+                                        $handle->file_safe_name = false;
+									
+                                        $handle->image_resize = true;
+									
+                                        $handle->image_ratio_no_zoom_in = true;
+									
+                                        $handle->file_new_name_body = $alt_file_safe;
+									
+                                        $handle->image_ratio = true;
+									
+                                        $handle->image_x = $dimensions_arr[0];
+									
+                                        $handle->image_y = $dimensions_arr[1];
+									
+                                        $handle->Process( $alt_file_path );
+									
+                                        if ( !$handle->processed ) {
+										  
+                                            $alertType = 'error';
+								            
+                                            $updatedMsg .= "The file ($alt_file_name) has <span style=\"color:red;\">NOT</span> been uploaded! Please contact Technical Support for a resolution. (".BASE_PATH.$uploadDirectory.$filename.")<br />";
+									   
+                                        } else {
+										  
+                                            $alertType = 'success';
+										
+                                            $updatedMsg .= "The file ($alt_file_name) has been successfully resized and uploaded!<br />";	
+									
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                            
+                        } else {
+                            
+                            // File was in the POST but does not exist. Error has occured
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
 			
 			// Update the Password Field
 			if(!isset($_POST['PASSWORD-SET'])) { $_POST['PASSWORD-SET'] = ''; }
@@ -456,35 +473,14 @@ if($isValidPage) {
                         echo "<div class=\"form-group\" $hiddenRow id=\"" . $elementName . "-HOLDER\">\n";
                         
                         if( !isset( $formElements['FILE-APPEND'] ) ) { $formElements['FILE-APPEND'] = ''; }
-                        /*
-                        echo "<input type=\"hidden\" name=\"UPLOAD[]\" value=\"".$formElements['SAVE-DIRECTORY']."|".$formElements['DATABASE-FIELD']."|".$formElements['FILE-APPEND']."\" />\n";    
-                        
-                        
-                    
-                        // Check if has an alternate upload 
-                        
-						if(!isset($formElements['ALTERNATE-UPLOAD-SIZES'])) { $formElements['ALTERNATE-UPLOAD-SIZES'] = ''; }
-						
-                        if(is_array($formElements['ALTERNATE-UPLOAD-SIZES'])) {
-						
-                            foreach($formElements['ALTERNATE-UPLOAD-SIZES'] as $alternateUploads) {
-							
-                                echo "<input type=\"hidden\" name=\"UPLOAD[]\" value=\"".$formElements['SAVE-DIRECTORY']."|".$formElements['DATABASE-FIELD']."|".$formElements['FILE-APPEND']."|".$alternateUploads."\" />\n";
-							 
-                            }
-						
-                        }
-                        */
                         
                         echo "<label for=\"" . $formElements['DATABASE-FIELD'] . "\" class=\"control-label col-lg-4\">" . $formElements['LABEL'] . "</label>";
                         
                         echo "<div class=\"col-lg-8\">";
 						
-						echo "<div class=\"upload-area\">";
+						echo "<div class=\"upload-area\" data-field=\"" . $formElements['DATABASE-FIELD'] . "\">";
                     
                         echo "<span><i class=\"fa fa-upload\"></i>&nbsp;Drag File Here or Click to Upload</span>";
-                    
-                        echo "<input type=\"hidden\" name=\"file-string\" class=\"file-string\" value=\"" . md5( time() ) . "\">"; // Create a Random number here to refer back to 
                     
                         echo "</div>";
                     
@@ -492,6 +488,27 @@ if($isValidPage) {
                     
                         echo "</div>\n";
                         
+                        // Check if the current file exists
+                    
+                        if( !empty( $r[$formElements['DATABASE-FIELD']] ) ) {
+							
+                            echo "<div class=\"form-group\">";
+                            
+                            echo "<div class=\"col-lg-8 col-lg-offset-4\">";
+                            
+							echo "<div class=\"upload-current\">";
+							
+                            echo "<a href=\"" . BASE_URL . $formElements['SAVE-DIRECTORY'] . $r[$formElements['DATABASE-FIELD']] . "\" class=\"btn btn-primary btn-xs fancybox\" target=\"_blank\" >View Current File</a>\n";
+							
+                            echo "&nbsp;&nbsp;<a href=\"javascript:;\" data-details=\"" . $formElements['DATABASE-FIELD'] . "|" . $r[$VARS['DB-KEY']] . "|" . $moduleRequest . "\" class=\"removeItem btn btn-primary btn-xs\">Remove Current File</a>\n";
+							
+                            echo "</div>";
+                            
+                            echo "</div>";
+						  
+                            echo "</div>";
+                            
+                        }
                         
                         /*
 						echo "<div class=\"form-group\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
