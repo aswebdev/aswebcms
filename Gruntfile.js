@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function( grunt ) {
   	
 	// Project configuration.
 	grunt.initConfig({
@@ -24,14 +24,6 @@ module.exports = function(grunt) {
         }
       },
       imagemin: {
-    	cms : {
-      	 files: [{
-        	expand: true, 
-        	cwd: 'ascms/dev/img/', 
-        	src: ['**//*.{png,jpg,gif}'],
-        	dest: 'ascms/dist/img/'
-      	 }]
-		},
         front : {
       	 files: [{
         	expand: true, 
@@ -40,36 +32,27 @@ module.exports = function(grunt) {
         	dest: 'dist/img/'
       	 }]
 		} 
-	  }
-    /*
-    ,
-	  imagemin: {
-    	dynamic: {                         // Another target
-      	files: [{
-        	expand: true,                  // Enable dynamic expansion
-        	cwd: 'ascms/includes/img/src/',                   // Src matches are relative to this path
-        	src: ['**//*.{png,jpg,gif}'],   // Actual patterns to match
-        	dest: 'ascms/includes/img/dest/'                  // Destination path prefix
-      	}]
-		}
-	  }
-      ,
-	  sass: {
-		dist: {
-		  files: {
-			'ascms/includes/css/style.css': 'ascms/includes/css/style.scss'
-		  }
-		}
-	  }*/
+	  },
+        watch: {
+         scripts: {
+            files: ['dev/img/*.{png,jpg,jpeg,gif}'],
+            tasks: ['imagemin'],
+            options: {
+                spawn: false,
+                event: ['added', 'changed']
+            }
+         }
+        }
 	});
 	
 	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
-	
+	grunt.loadNpmTasks('grunt-contrib-watch');
+    
  	// Default task(s).
 	//grunt.registerTask('default', ['uglify','cssmin','imagemin']);
-	grunt.registerTask('default', ['uglify','cssmin','imagemin']);
+	grunt.registerTask( 'default' , ['uglify','cssmin','imagemin','watch'] );
     
 };

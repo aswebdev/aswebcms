@@ -10,6 +10,8 @@ session_start();
 
 // Definition of the site constants
 
+define( 'FILE_OWNER' , 'andrew' );
+
 define( 'DEV_MODE' , true ); // will work from the /dev/ folder rather than the /dist/ folder
 
 define( 'BASE_PATH' , dirname(dirname(dirname(__FILE__))) . '/' );
@@ -47,7 +49,7 @@ if ( $_SERVER['HTTPS'] == "on" ) {
 
 }
 
-define( 'BASE_DOMAIN' , '192.168.0.6/~andrew/ASCMS/' );
+define( 'BASE_DOMAIN' , '192.168.0.8/~andrew/ASCMS/' );
 
 define( 'BASE_URL' , PROTOCOL . BASE_DOMAIN );
 
@@ -95,6 +97,10 @@ define( 'MYSQL_HOST' , '127.0.0.1' );
 define( 'DEBUG' , false ); // Debugging of the website
 
 define( 'ERROR_PAGE' , BASE_URL. '/404/' );
+
+// Image Upload File Types
+
+$image_file_upload_types = array( 'png' , 'jpeg' , 'jpg' , 'gif' );
 
 // Include the main files
 

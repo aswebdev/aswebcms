@@ -1,29 +1,42 @@
 <?php
 
-if($isValidPage) {
+if( $isValidPage ) {
 
 	// Check the existing submitted forms
-	$submittedForm = false; // Check if has been submitted
-	$updatedMsg = false; // Update message may be populated later for display
-	$hideElements = false; // Don't Hide Elements
-	$alertType = '';
+	
+    $submittedForm = false; // Check if has been submitted
+	
+    $updatedMsg = false; // Update message may be populated later for display
+	
+    $hideElements = false; // Don't Hide Elements
+	
+    $alertType = '';
 	
 	if(isset($_POST['submittedFormTrigger'])) { $submittedForm = true; }
-	if($submittedForm) {
+	
+    if($submittedForm) {
 		
 		// Check if has previous ID
 		
 		if(!empty($_POST[$VARS['DB-KEY']])) { $hasId = true; }
-		if(!empty($hasId)) {
-			$updateType = "UPDATE"; // Update
-		} else {
-			$updateType = "INSERT"; // Insert
-		}
+	
+        if(!empty($hasId)) {
+		
+            $updateType = "UPDATE"; // Update
+		
+        } else {
+		
+            $updateType = "INSERT"; // Insert
+		
+        }
 		
 		// Could be a Delete!
-		if(!empty($_POST['deleteEntry'])) {
-			$updateType = "DELETE"; // Insert
-		}
+		
+        if(!empty($_POST['deleteEntry'])) {
+		
+            $updateType = "DELETE"; // Insert
+		
+        }
 		
 		if( $id = updateDatabaseEntry( $VARS['TABLE'] , $VARS['DB-FIELDS'] , $updateType , $VARS['DB-KEY'] ) ) {
 			
@@ -41,7 +54,7 @@ if($isValidPage) {
                     
                     if( !empty( $_POST[$k] ) ) {
                         
-                        $temp_file = BASE_PATH . $v['SAVE-DIRECTORY'] . $_POST[$k];
+                        $temp_file = BASE_PATH . $v['SAVE-DIRECTORY-TMP'] . $_POST[$k];
                         
                         $ext = pathinfo( $_POST[$k] , PATHINFO_EXTENSION );
                         
@@ -57,7 +70,7 @@ if($isValidPage) {
                                 
                                 // Save it to the database
                                 
-                                $sql = "UPDATE `" . $VARS['TABLE'] . "` SET `" . $k . "` = '" . mysql_real_escape_string( $saved_file_name ) . "' ";
+                                $sql = "UPDATE `" . $VARS['TABLE'] . "` SET `" . $k . "` = '" . mysql_real_escape_string( $saved_file_name ) . "' WHERE `" . $VARS['DB-KEY'] . "` = '" . mysql_real_escape_string( $id ) . "' ";
                                 
                                 mysql_query( $sql , $conn );
                                 
@@ -135,27 +148,46 @@ if($isValidPage) {
 			
 			// Update the Password Field
 			if(!isset($_POST['PASSWORD-SET'])) { $_POST['PASSWORD-SET'] = ''; }
-			if(is_array($_POST['PASSWORD-SET'])) {
-				foreach($_POST['PASSWORD-SET'] as $pw) {
-					if(!empty($_POST[$pw.'-update'])) {
-						// Has checked to reset password
-						if(!empty($_POST[$pw])) {
-							// Make Sure Password has contents
-							$sql = "UPDATE `".$VARS['TABLE']."` SET  `$pw` = '".md5($_POST[$pw])."' WHERE `".$VARS['DB-KEY']."` = '".mysql_real_escape_string($id)."' ";
-							if(mysql_query($sql,$conn)) {
-								$alertType = 'success';
-								$updatedMsg .= "Your password has been updated!<br />";	
-							}
-						}
-					}
-				}
-			}
+			
+            if(is_array($_POST['PASSWORD-SET'])) {
+			
+                foreach($_POST['PASSWORD-SET'] as $pw) {
+				
+                    if(!empty($_POST[$pw.'-update'])) {
+					
+                        // Has checked to reset password
 						
+                        if(!empty($_POST[$pw])) {
+						
+                            // Make Sure Password has contents
+							
+                            $sql = "UPDATE `".$VARS['TABLE']."` SET  `$pw` = '".md5($_POST[$pw])."' WHERE `".$VARS['DB-KEY']."` = '".mysql_real_escape_string($id)."' ";
+							
+                            if(mysql_query($sql,$conn)) {
+							
+                                $alertType = 'success';
+								
+                                $updatedMsg .= "Your password has been updated!<br />";	
+							
+                            }
+						
+                        }
+					
+                    }
+				
+                }
+                
+			}
+            
 		} else {
-			$alertType = 'error';
-			$updatedMsg .= "Error has occured when updating your ".$VARS['LABELER'].". Please contact Technical Support for a resolution. (TABLE:".$VARS['TABLE'].", KEY: ".$VARS['DB-KEY'].")";	
-		}
-	}
+			
+            $alertType = 'error';
+			
+            $updatedMsg .= "Error has occured when updating your ".$VARS['LABELER'].". Please contact Technical Support for a resolution. (TABLE:".$VARS['TABLE'].", KEY: ".$VARS['DB-KEY'].")";	
+		
+        }
+	
+    }
 
 	// So the Content Selection
 	if(isset($_REQUEST[$VARS['DB-KEY']])) { $id = urldecode($_REQUEST[$VARS['DB-KEY']]); }
@@ -288,23 +320,49 @@ if($isValidPage) {
 		if(is_array($VARS['FORM-ELEMENTS'])) {
 			foreach($VARS['FORM-ELEMENTS'] as $elementName => $formElements) {
 				
-				$additionalAttributes = "";
-				$hiddenRow = '';
-				if(!empty($formElements['REQUIRED'])) { $additionalAttributes .= " class=\"form-control requiredElement\" "; } else { $additionalAttributes .= " class=\"form-control\" "; }
-				if(!empty($formElements['VALIDATION-MESSAGE'])) { $additionalAttributes .= " data-error=\"".$formElements['VALIDATION-MESSAGE']."\" "; }
-				if(!empty($formElements['PLACEHOLDER'])) { $additionalAttributes .= " placeholder=\"".$formElements['PLACEHOLDER']."\" "; }
-				if(!empty($formElements['INITIAL-HIDE'])) { $hiddenRow = " style=\"display:none;\" "; }
+				$additionalAttributes = "class=\"form-control ";
+				
+                $hiddenRow = '';
+                
+                if( !empty( $formElements['REQUIRED'] ) ) { 
+                    
+                    $additionalAttributes .= "requiredElement ";
+                
+                }
+				
+                if( $formElements['TYPE'] == 'text-url' ) {
+                    
+                    $additionalAttributes .= "url-validate";
+                    
+                }
+                
+                $additionalAttributes .= "\"";
+                
+                if(!empty($formElements['VALIDATION-MESSAGE'])) { $additionalAttributes .= " data-error=\"".$formElements['VALIDATION-MESSAGE']."\" "; }
+				
+                if(!empty($formElements['PLACEHOLDER'])) { $additionalAttributes .= " placeholder=\"".$formElements['PLACEHOLDER']."\" "; }
+				
+                if(!empty($formElements['INITIAL-HIDE'])) { $hiddenRow = " style=\"display:none;\" "; }
 				
 				// Check for Additional Styles
-				$styleAttributes = '';
-				if(!isset($formElements['STYLES'])) { $formElements['STYLES'] = ''; } 
-				if(is_array($formElements['STYLES'])) {
-					$styleAttributes .= 'style="';
-					foreach($formElements['STYLES'] as $styleName => $styleValue) {
-						$styleAttributes .= $styleName.":".$styleValue.";";
-					}
-					$styleAttributes .= '"';
-				}
+				
+                $styleAttributes = '';
+				
+                if(!isset($formElements['STYLES'])) { $formElements['STYLES'] = ''; } 
+				
+                if(is_array($formElements['STYLES'])) {
+				
+                    $styleAttributes .= 'style="';
+					
+                    foreach($formElements['STYLES'] as $styleName => $styleValue) {
+					
+                        $styleAttributes .= $styleName.":".$styleValue.";";
+					
+                    }
+					
+                    $styleAttributes .= '"';
+				
+                }
 				
 				// Check for FileType Attributes
 				$filetypeAttributes = '';
@@ -333,18 +391,26 @@ if($isValidPage) {
 						echo "</div>\n";
 						echo "</div>\n";
 					break;
-					case 'text-url':
-						echo "<div class=\"form-group\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
-						echo "<label for=\"".$formElements['DATABASE-FIELD']."\" class=\"control-label col-lg-4\">".$formElements['LABEL']."</label>";
-						echo "<div class=\"col-lg-8\">";
-						echo "<input type=\"text\" name=\"".$formElements['DATABASE-FIELD']."\" id=\"".$formElements['DATABASE-FIELD']."\" $additionalAttributes $styleAttributes value=\"".$r[$formElements['DATABASE-FIELD']]."\" autocomplete=\"off\" />";
+					
+                    case 'text-url':
+					
+                    echo "<div class=\"form-group\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
 						
-						if(!empty($formElements['DESCRIPTION'])) { echo "<span class=\"help-block\">".$formElements['DESCRIPTION']."</span>"; }
+                    echo "<label for=\"".$formElements['DATABASE-FIELD']."\" class=\"control-label col-lg-4\">".$formElements['LABEL']."</label>";
 						
-						echo "</div>\n";
-						echo "</div>\n";
-					break;
-					case 'textarea':
+                    echo "<div class=\"col-lg-8\">";
+						
+                    echo "<input type=\"text\" name=\"".$formElements['DATABASE-FIELD']."\" id=\"".$formElements['DATABASE-FIELD']."\" $additionalAttributes $styleAttributes value=\"".$r[$formElements['DATABASE-FIELD']]."\" autocomplete=\"off\" />";
+						
+					if(!empty($formElements['DESCRIPTION'])) { echo "<span class=\"help-block\">".$formElements['DESCRIPTION']."</span>"; }
+						
+					echo "</div>\n";
+					
+                    echo "</div>\n";
+					
+                    break;
+					
+                    case 'textarea':
 						echo "<div class=\"form-group\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
 						
 						echo "<label for=\"".$formElements['DATABASE-FIELD']."\" class=\"control-label col-lg-4\">".$formElements['LABEL']."</label>";
@@ -510,48 +576,7 @@ if($isValidPage) {
                             
                         }
                         
-                        /*
-						echo "<div class=\"form-group\" $hiddenRow id=\"".$elementName."-HOLDER\">\n";
-						if(!isset($formElements['FILE-APPEND'])) { $formElements['FILE-APPEND'] = ''; }
-						echo "<input type=\"hidden\" name=\"UPLOAD[]\" value=\"".$formElements['SAVE-DIRECTORY']."|".$formElements['DATABASE-FIELD']."|".$formElements['FILE-APPEND']."\" />\n";
-						
-						// Check if has an alternate upload 
-						if(!isset($formElements['ALTERNATE-UPLOAD-SIZES'])) { $formElements['ALTERNATE-UPLOAD-SIZES'] = ''; }
-						if(is_array($formElements['ALTERNATE-UPLOAD-SIZES'])) {
-							foreach($formElements['ALTERNATE-UPLOAD-SIZES'] as $alternateUploads) {
-								echo "<input type=\"hidden\" name=\"UPLOAD[]\" value=\"".$formElements['SAVE-DIRECTORY']."|".$formElements['DATABASE-FIELD']."|".$formElements['FILE-APPEND']."|".$alternateUploads."\" />\n";
-							}
-						}
-						
-						echo "<label for=\"".$formElements['DATABASE-FIELD']."\" class=\"control-label col-lg-4\">".$formElements['LABEL']."</label>";
-						echo "<div class=\"col-lg-4\">";
-						
-						echo "<div class=\"upload-area\"><span><i class=\"fa fa-folder-open\"></i>&nbsp;Drag Your File Here</span><input type=\"file\" name=\"".$formElements['DATABASE-FIELD']."\" class=\"uploadImg\" data-label=\"".$formElements['LABEL']."\" $filetypeAttributes></div>";
-
-						// Check if the current file exists
-						$currentFile = BASE_PATH.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']];
-						if(is_file($currentFile)) {
-							
-							// Check if image, if so do fancybox
-							$currentFileExt = strtolower(pathinfo($currentFile, PATHINFO_EXTENSION));
-							$fileTypes = array('png','jpg','jpeg','gif');
-							$imageClass = '';
-							$fileTarget = '';
-							if(in_array($currentFileExt,$fileTypes)) { 
-								$imageClass = 'fancybox';
-							} else {
-								$fileTarget = "target=\"_blank\"";
-							}
-							
-							
-							echo "<div class=\"upload-current\">";
-							echo "<a href=\"".BASE_URL.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']]."\" class=\"btn btn-primary btn-xs ".$imageClass."\" $fileTarget>View Current File</a>\n";
-							echo "&nbsp;&nbsp;<a href=\"javascript:;\" data-remove=\"".BASE_URL.$formElements['SAVE-DIRECTORY'].$r[$formElements['DATABASE-FIELD']]."\" data-details=\"".$VARS['TABLE']."|".$formElements['DATABASE-FIELD']."|".$r[$VARS['DB-KEY']]."|".$VARS['DB-KEY']."\" class=\"removeItem btn btn-primary btn-xs\">Remove Current File</a>\n";
-							echo "</div>";
-						}
-						echo "</div>\n";
-						echo "</div>\n";
-                        */
+                        
 					break;
 					case 'separator':
 						echo "<div class=\"lineHolder\"></div>\n";

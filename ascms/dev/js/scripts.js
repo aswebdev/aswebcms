@@ -159,14 +159,22 @@ $(document).ready(function(){
 	});
 	
 	// If user clicks on the submit button we validate the page
-	$('.submitButton').click(function() {
-		var msg = ''; // Set Variables
-		// Check the required Elements
-		$('.requiredElement').each(function() {
-			if($(this).val() == '') {
-				msg += $(this).data('error')+"<br />\n";
-			}
-		});	
+	
+    $('.submitButton').click(function() {
+	
+        var msg = ''; // Set Variables
+		
+        // Check the required Elements
+		
+        $('.requiredElement').each(function() {
+		
+            if($(this).val() == '') {
+			
+                msg += $(this).data('error')+"<br />\n";
+			
+            }
+		
+        });	
 		
 		$(".uploadImg").each(function(){
 			if($(this).val() != '') {
@@ -245,34 +253,64 @@ $(document).ready(function(){
 	});
 	
 	$('.removeItem').click(function() {
-		var thisItem = $(this);
-		var removeConfirmation = confirm("Are you Sure you want to Remove this item?");
-		var fileItem = $(this).data('remove');
-		var fileDetails = $(this).data('details');
-		if (removeConfirmation == true) {
-			dataString = {'fileItem':fileItem, 'fileDetails':fileDetails}; // Create the Json Data String	
-			$.getJSON('ajax/remove-item.php',dataString, function(data) {
-				if(data.RETURN == 'VALID') {
-					alert('Item Removed!');
+		
+        var thisItem = $(this);
+		
+        var removeConfirmation = confirm("Are you Sure you want to Remove this item?");
+		
+        var fileItem = $(this).data('remove');
+		
+        var fileDetails = $(this).data('details');
+		
+        if (removeConfirmation == true) {
+		
+            dataString = {'fileItem':fileItem, 'fileDetails':fileDetails}; // Create the Json Data String	
+			
+            $.getJSON('ajax/remove-item.php',dataString, function( data ) {
+				
+                console.log( data );
+                
+                if(data.RETURN == 'VALID') {
+
 					thisItem.hide(500);
+                    
 				}
 			});
-		} else {
+		
+        } else {
 			
 		}
 	});
 	
+    // Url Validation
+    
+    $( '.url-validate' ).keyup( function() {
+       
+        var escaped_val = $( this ).val().replace(/[^a-zA-Z0-9]/g,'-');
+        
+        $( this ).val( escaped_val );
+        
+    });
+    
 	// Check if Popup Needs to loadup
 	
     function checkPopUp( msg ) {
         
         if(msg != '') {
-			$(".popup-msg").html("<div class=\"alert alert-danger\" style=\"margin-top:10px;\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+msg+"</div>");
-			setTimeout(function(){ loadPopup(); }, 500); // .5 second
-		} else {
-			$('.admin-form').submit(); // Safe to submit form	
-		}
-	}
+		      
+            $("html, body").animate({ scrollTop: "0px" });
+            
+            $(".popup-msg").html("<div class=\"alert alert-danger\" style=\"margin-top:10px;\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+msg+"</div>");
+			
+            setTimeout(function(){ loadPopup(); }, 500); // .5 second
+		
+        } else {
+		
+            $('.admin-form').submit(); // Safe to submit form	
+		
+        }
+	
+    }
 	
 	// Loads up Popup Div
 	function loadPopup() { 
@@ -367,8 +405,8 @@ $(document).ready(function(){
             
             form_data.append( "filename" , fn );
             
-            ajax_request( 'ajax/save-file.php' , form_data , function saved_upload() {
-             
+            ajax_request( 'ajax/save-file.php' , form_data , function saved_upload( ret_data ) {
+                
                 // create a hidden form element for save reference during POST
                 
                 var field = d.data( 'field' );
@@ -439,6 +477,6 @@ $(document).ready(function(){
     
         return result;
 
-    }
+    } 
     
 });

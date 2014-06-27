@@ -20,11 +20,11 @@ if( $data ) {
     
     // Save the Data to the server
     
-    $file_dir = BASE_PATH . 'dev/img/' . $filename;
+    $file_dir = BASE_PATH . 'dev/tmp/' . $filename;
+    
+    $arr['return']  = $file_dir; 
     
     file_put_contents( $file_dir , $data );
-    
-    // $arr['return'] = $file_dir;
     
 } else {
     

@@ -5,3 +5,5 @@
 /ascms/.DS_Store
 /ascms/packages/.DS_Store
 /ascms/packages/ckfinder/.DS_Store
+/server/grunt-run.sh
+/error_log
